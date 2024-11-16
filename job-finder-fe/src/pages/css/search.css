@@ -1,0 +1,259 @@
+/* General Styles */
+.search-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+/* Headings */
+.search-h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Input Field with Rounded Corners */
+.search-input {
+  width: 50%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input:hover {
+  border-color: #aaa;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+  transform: scale(1.02);
+  outline: none;
+}
+
+/* Table Styles with Adjusted Columns */
+.search-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+}
+
+.search-table th,
+.search-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+}
+
+.search-table th {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.search-table td {
+  background-color: #fff;
+}
+
+/* Column Sizes Adjustments */
+.search-table td:nth-child(1) {
+  width: 8%; /* Id column smaller */
+}
+
+.search-table td:nth-child(2) {
+  width: 15%; /* Name column smaller */
+}
+
+.search-table td:nth-child(5) {
+  width: 10%; /* User column smaller */
+}
+
+.search-table td:nth-child(4) {
+  width: 20%; /* Image column */
+}
+
+.search-table td:nth-child(6) {
+  width: 18%; /* Action column larger */
+}
+
+.search-table tr:hover td {
+  background-color: #f0f8ff;
+  cursor: pointer;
+}
+
+/* Add border to last column and last row */
+.search-table th:last-child,
+.search-table td:last-child {
+  border-right: none;
+}
+
+.search-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Image Styles */
+.search-table img {
+  max-width: 150px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Action Buttons with Balanced Spacing - Same Row */
+.search-table td .search-action-button {
+  display: inline-block; /* Ensure buttons stay in the same line */
+  width: auto; /* Adjust to avoid forcing buttons onto new lines */
+  margin-right: 10px; /* Space between buttons */
+  margin-bottom: 0; /* Prevent wrapping */
+  padding: 8px 15px;
+}
+
+.search-action-button:last-child {
+  margin-right: 0; /* No margin after the last button */
+}
+
+.search-action-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-action-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-3px);
+}
+
+.search-action-button:active {
+  transform: translateY(0);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Pagination Styles */
+.search-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+/* Pagination Button */
+.search-button {
+  background-color: rgb(30, 181, 227);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+/* Hover Effect */
+.search-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Disabled State */
+.search-button:disabled {
+  background-color: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Page Number Styles */
+.search-pageNumbers {
+  display: flex;
+  align-items: center;
+}
+
+/* Individual Page Button */
+.search-pageButton {
+  background: none;
+  border: 2px solid transparent;
+  margin: 0 5px;
+  cursor: pointer;
+  padding: 8px 12px; /* Added padding for a better touch target */
+  font-size: 16px;
+  color: #007bff;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover Effect for Page Buttons */
+.search-pageButton:hover {
+  background-color: #f0f8ff;
+  color: #0056b3;
+}
+
+/* Active Page Button */
+.search-pageButton.active {
+  font-weight: bold;
+  color: #0056b3;
+  border: 2px solid #007bff;
+}
+
+/* Go To Page Input - Consistent Style */
+.search-goToPage {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Input field styling */
+.search-goToPage input {
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 80px;
+  margin-right: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Go Button */
+.search-goToPage button {
+  background-color:rgb(30, 181, 227);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-goToPage button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* Error Message */
+.search-error {
+  color: red;
+  margin-top: 20px;
+  font-weight: bold;
+  text-align: center;
+}

@@ -1,0 +1,189 @@
+/* Reset CSS và biến màu sắc */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #00796b;
+    --background-color: #ffffff;
+    --text-color: #333;
+    --border-color: #ddd;
+    --hover-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Container chính */
+.user-apply-job {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header */
+.user-apply-job-h1 {
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Container cho danh sách job */
+.user-apply-job-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+/* Card chi tiết job */
+.user-apply-job-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
+.user-apply-job-details:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--hover-shadow);
+}
+
+/* Thông tin job */
+.job-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-apply-job-logo,
+.user-apply-applicant-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.user-apply-job-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Divider */
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0;
+}
+
+/* Phần ứng viên */
+.job-applicants {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.applicant {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+}
+
+.applicant-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.applicant-info button {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.applicant-info button:hover {
+    background-color: #0056b3;
+}
+
+/* Phân trang */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.pagination span {
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .user-apply-job {
+        padding: 16px;
+    }
+    
+    .user-apply-job-details {
+        padding: 16px;
+    }
+    
+    .user-apply-job-logo,
+    .user-apply-applicant-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .user-apply-job-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* Loading và Error states */
+.user-apply-job-no-jobs {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: #666;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}

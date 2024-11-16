@@ -1,0 +1,227 @@
+/* Container */
+.update-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    /* Change to white for better contrast */
+    padding: 20px;
+    border-radius: 15px;
+    /* Slightly rounder corners */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect for Container */
+.update-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Title */
+.update-container h1 {
+    text-align: center;
+    font-size: 28px;
+    /* Increased font size */
+    color: #333;
+    margin-bottom: 20px;
+    animation: bounceIn 0.5s;
+    /* Bounce in effect */
+}
+
+/* Error Message */
+.error-message {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: red;
+    animation: shake 0.5s;
+    /* Shake effect on error */
+}
+
+/* Form Input Fields */
+.update-container label {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+    display: block;
+    /* Stack labels above inputs */
+    font-weight: bold;
+    /* Make labels bold */
+}
+
+.update-container input,
+.update-container textarea {
+    width: 100%;
+    padding: 12px;
+    /* Increased padding for better usability */
+    margin: 8px 0;
+    border: 2px solid #ccc;
+    /* Thicker border for better visibility */
+    border-radius: 15px;
+    /* More rounded corners */
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    /* Added transitions */
+}
+
+/* Focus Effect */
+.update-container input:focus,
+.update-container textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    /* Box shadow on focus */
+    background-color: #e9f5ff;
+    /* Light blue background on focus */
+    animation: pulse 0.5s;
+    /* Pulse effect on focus */
+}
+
+/* Textarea */
+.update-container textarea {
+    resize: vertical;
+    height: 120px;
+    /* Slightly taller for better text entry */
+}
+
+/* Submit Button */
+.update-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 15px;
+    /* More rounded corners */
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    /* Added margin to separate from previous input */
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    /* Updated transform transition */
+}
+
+/* Button Hover Effect */
+.update-container button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    /* Scale effect on hover */
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    /* Add a shadow effect on hover */
+}
+
+.update-container button:active {
+    background-color: #003f8c;
+    transform: scale(0.95);
+    /* Slightly shrink on click */
+}
+
+/* Additional Effects for Inputs */
+.update-container input:not(:placeholder-shown),
+.update-container textarea:not(:placeholder-shown) {
+    background-color: #f9f9f9;
+    /* Light background for filled fields */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.update-container select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    font-size: 16px;
+    color: #555;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.update-container select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    background-color: #e9f5ff;
+    animation: pulse 0.5s;
+}
+
+.update-container option {
+    padding: 10px;
+    background-color: white;
+    color: #333;
+}
+
+.update-container option:hover {
+    background-color: #e9f5ff;
+    cursor: pointer;
+}
+
+/* Hover and focus effects */
+.update-container select:hover {
+    border-color: #007bff;
+    background-color: #f1f1f1;
+}
+
+/* Pulse animation for focus */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Keyframes for Animations */
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}

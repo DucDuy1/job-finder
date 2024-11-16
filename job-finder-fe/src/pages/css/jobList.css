@@ -1,0 +1,157 @@
+.job-list__header {
+  display: flex;
+  justify-content: center; /* Đặt nội dung vào giữa */
+  align-items: center;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #ccc;
+  position: relative; /* Để giữ nút Home trong layout */
+}
+
+.job-list__home-button {
+  position: absolute;
+  left: 10px; /* Đặt nút Home về bên trái */
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #333;
+  background-color: #ddd;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.job-list__home-button:hover {
+  background-color: #bbb;
+}
+
+.job-list__title {
+  font-size: 34px;
+  font-weight: bold;
+  color: #444;
+  text-align: center;
+}
+
+/* Table Styles */
+.job-list__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.job-list__table th,
+.job-list__table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.job-list__table th {
+  background-color: #eee;
+}
+
+.job-list__row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.job-list__image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Action Buttons */
+.job-list__update-button,
+.job-list__delete-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.job-list__update-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.job-list__update-button:hover {
+  background-color: #45a049;
+}
+
+.job-list__delete-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.job-list__delete-button:hover {
+  background-color: #e53935;
+}
+
+/* Pagination Styles */
+.job-list-pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.job-list-pagination-button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.job-list-pagination-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.job-list-pagination-page-indicator {
+  margin: 0 10px;
+}
+
+.job-list-pagination-page-button {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  cursor: pointer;
+}
+
+.job-list-pagination-page-button.active {
+  background-color: #2196f3;
+  color: white;
+}
+
+.job-list-pagination-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.job-list-pagination-input input {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.job-list-pagination-input button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.job-list-pagination-input button:hover {
+  background-color: #1e88e5;
+}

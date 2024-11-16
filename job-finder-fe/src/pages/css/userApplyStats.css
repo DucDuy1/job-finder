@@ -1,0 +1,236 @@
+/* Root variables cho dễ tùy chỉnh */
+:root {
+    --userApplyStats-primary: #3498db;
+    --userApplyStats-secondary: #2ecc71;
+    --userApplyStats-gradient: linear-gradient(135deg, var(--userApplyStats-primary), var(--userApplyStats-secondary));
+}
+
+/* Main container styles */
+.userApplyStats-container {
+    padding: 40px;
+    background: linear-gradient(135deg, #ffffff, #f0f7ff);
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.1),
+        0 2px 10px rgba(0, 0, 0, 0.05);
+    max-width: 1200px; /* Tăng max-width */
+    margin: 40px auto;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.userApplyStats-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px; /* Tăng kích thước */
+    height: 300px;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+    z-index: 0;
+}
+
+.userApplyStats-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 250px; /* Tăng kích thước */
+    height: 250px;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(46, 204, 113, 0.1));
+    border-radius: 50%;
+    transform: translate(-30%, 30%);
+    z-index: 0;
+}
+
+/* Title styles */
+.userApplyStats-title {
+    color: #2c3e50;
+    font-size: 36px; /* Tăng font size */
+    font-weight: 700;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #eef2f7;
+    text-align: center;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.userApplyStats-title::before {
+    content: '📊';
+    position: absolute;
+    left: 0;
+    font-size: 32px; /* Tăng font size */
+}
+
+.userApplyStats-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* Tăng width */
+    height: 4px;
+    background: var(--userApplyStats-gradient);
+    border-radius: 4px;
+}
+
+/* Job item styles */
+.userApplyStats-jobItem {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 20px;
+    padding: 35px 40px; /* Tăng padding */
+    margin-bottom: 30px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.userApplyStats-jobItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px; /* Tăng width */
+    height: 100%;
+    background: var(--userApplyStats-gradient);
+    border-radius: 4px 0 0 4px;
+}
+
+.userApplyStats-jobItem:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.12),
+        0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Job ID styles */
+.userApplyStats-jobId {
+    color: #2c3e50;
+    font-size: 24px; /* Tăng font size */
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    padding: 15px 25px;
+    background: rgba(52, 152, 219, 0.08);
+    border-radius: 15px;
+    max-width: fit-content;
+}
+
+.userApplyStats-jobId::before {
+    content: '🎯';
+    margin-right: 15px;
+    font-size: 28px; /* Tăng font size */
+}
+
+/* Applicant count styles */
+.userApplyStats-applicantCount {
+    color: #34495e;
+    font-size: 20px; /* Tăng font size */
+    display: flex;
+    align-items: center;
+    background: rgba(46, 204, 113, 0.08);
+    padding: 15px 30px;
+    border-radius: 15px;
+    max-width: fit-content;
+    transition: all 0.3s ease;
+}
+
+.userApplyStats-applicantCount::before {
+    content: '👥';
+    margin-right: 15px;
+    font-size: 26px; /* Tăng font size */
+}
+
+.userApplyStats-applicantCount:hover {
+    background: rgba(46, 204, 113, 0.15);
+    transform: scale(1.05);
+}
+
+/* No jobs message styles */
+.userApplyStats-noJobs {
+    text-align: center;
+    color: #95a5a6;
+    font-size: 24px; /* Tăng font size */
+    padding: 60px 0;
+    background: linear-gradient(135deg, rgba(149, 165, 166, 0.05), rgba(149, 165, 166, 0.1));
+    border-radius: 15px;
+    margin: 30px 0;
+    border: 3px dashed #cbd5e0;
+    position: relative;
+}
+
+.userApplyStats-noJobs::before {
+    content: '📝';
+    display: block;
+    font-size: 50px; /* Tăng font size */
+    margin-bottom: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .userApplyStats-container {
+        margin: 30px;
+        max-width: calc(100% - 60px);
+    }
+}
+
+@media (max-width: 768px) {
+    .userApplyStats-container {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    .userApplyStats-title {
+        font-size: 28px;
+    }
+    
+    .userApplyStats-jobItem {
+        padding: 25px;
+    }
+    
+    .userApplyStats-jobId {
+        font-size: 20px;
+    }
+    
+    .userApplyStats-applicantCount {
+        font-size: 18px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .userApplyStats-container {
+        background: linear-gradient(135deg, #1a1f25, #2c3e50);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .userApplyStats-title {
+        color: #ffffff;
+        border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .userApplyStats-jobItem {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .userApplyStats-jobId,
+    .userApplyStats-applicantCount {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .userApplyStats-noJobs {
+        color: #bdc3c7;
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+}
+

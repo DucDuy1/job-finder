@@ -1,0 +1,344 @@
+:root {
+  --gradient-1: linear-gradient(45deg, #FF6B6B, #FFE66D);
+  --gradient-2: linear-gradient(135deg, #4E65FF, #92EFFD);
+  --gradient-3: linear-gradient(45deg, #FF9A9E, #FAD0C4);
+  --neon-shadow: 0 0 20px rgba(78, 101, 255, 0.5);
+}
+
+.register-page {
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1c23 0%, #242938 100%);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.register-grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.register-page::before,
+.register-page::after {
+  content: '';
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: 0;
+  animation: floatingShapes 20s ease-in-out infinite;
+}
+
+.register-page::before {
+  background: rgba(255, 107, 107, 0.2);
+  top: -100px;
+  left: -100px;
+}
+
+.register-page::after {
+  background: rgba(78, 101, 255, 0.2);
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -10s;
+}
+
+.register-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.register-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: skewX(-15deg);
+  animation: shine 8s infinite;
+}
+
+.register-container h2 {
+  font-size: 36px;
+  font-weight: 700;
+  background: linear-gradient(45deg, #92EFFD, #4E65FF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 0 0 20px rgba(78, 101, 255, 0.3);
+  animation: titlePulse 2s infinite;
+}
+
+.register-form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.register-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register-form-group input {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.register-form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.register-form-group input:focus {
+  border-color: #92EFFD;
+  box-shadow: 0 0 0 4px rgba(146, 239, 253, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.register-button {
+  width: 100%;
+  padding: 16px;
+  background: var(--gradient-2);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--neon-shadow);
+}
+
+.register-button:hover::before {
+  left: 100%;
+}
+
+.register-link {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.register-link-text {
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.register-link-text::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-1);
+  transition: width 0.3s ease;
+}
+
+.register-link-text:hover {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.register-link-text:hover::after {
+  width: 100%;
+}
+
+.register-separator {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 10px;
+}
+
+/* Animations */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatingShapes {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(30px, 20px) rotate(180deg); }
+  100% { transform: translate(0, 0) rotate(360deg); }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes titlePulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 30px 20px;
+  }
+
+  .register-container h2 {
+    font-size: 28px;
+  }
+
+  .register-form-group input {
+    padding: 12px 15px;
+  }
+
+  .register-button {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #4E65FF, #92EFFD);
+  border-radius: 4px;
+}
+
+/* Input Autofill Styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Background shapes */
+.register-page {
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1c23 0%, #242938 100%);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Animated background elements */
+.register-background-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.register-shape {
+  position: absolute;
+  filter: blur(40px);
+  opacity: 0.4;
+  animation: floatShape 20s infinite;
+}
+
+.register-shape-1 {
+  top: 15%;
+  left: 10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 107, 107, 0.5);
+}
+
+.register-shape-2 {
+  bottom: 10%;
+  right: 15%;
+  width: 250px;
+  height: 250px;
+  background: rgba(78, 101, 255, 0.5);
+}
+
+.register-shape-3 {
+  bottom: 40%;
+  left: 40%;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 154, 158, 0.5);
+}

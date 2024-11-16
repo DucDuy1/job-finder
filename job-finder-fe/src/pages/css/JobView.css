@@ -1,0 +1,185 @@
+/* Tổng thể giao diện */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+}
+
+.job {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem; /* You can increase this value to make gaps larger */
+    padding: 2rem;
+}
+
+/* Add margin to the job card */
+.groupDiv {
+    width: 100%;
+    max-width: 400px;
+    min-height: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* Add margin to increase space between cards */
+    margin-bottom: 30px; /* Adjust this value as needed */
+}
+
+/* Hiệu ứng khi hover vào thẻ Job */
+.groupDiv:hover {
+    transform: translateY(-5px); /* Dịch khối lên khi di chuột */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Đổ bóng rõ hơn */
+}
+
+/* Phần tiêu đề Job */
+.groupSpan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.textH1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+
+.textH6 {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Đường kẻ phân cách */
+.line {
+    border: 0.5px solid #ccc;
+    margin: 0.5rem 0;
+}
+
+/* Phần mô tả công việc */
+.textP {
+    font-size: 20px;
+    color: #777;
+    margin: 1rem 0;
+}
+
+/* Phần hình ảnh và thông tin người dùng */
+.company {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo {
+    width: 60px;
+    height: 60px; /* Giữ tỷ lệ khung hình */
+    border-radius: 70px;
+}
+
+/* Tên công ty hoặc người dùng */
+.SpanDiv1 {
+    font-size: 17px;
+    color:#666;
+    display: flex;
+    align-items: center;
+}
+
+/* Nút Apply Now */
+.btn1 {
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background-color:   rgb(19, 159, 241);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn1:hover {
+    background-color: #0056b3;
+    transform: scale(1.05); 
+}
+
+/* Phân trang (Pagination) */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination button:hover {
+    background-color: #0056b3;
+}
+
+.searchForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #eef2f5;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.searchInput {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.searchButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .groupDiv {
+        max-width: 100%;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .searchInput {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

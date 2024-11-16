@@ -1,0 +1,95 @@
+/* Tổng thể cho JobUserApply */
+.job-user-apply {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+  
+  .job-user-apply-container {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép hiển thị nhiều job trên một hàng */
+    justify-content: center; /* Căn giữa các job */
+    gap: 30px; /* Tăng khoảng cách giữa các job (thay đổi từ 12px sang 20px) */
+}
+
+.job-user-apply-details {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 400px; /* Tăng kích thước chiều ngang lên 400px (hoặc giá trị bạn muốn) */
+  overflow: hidden;
+  margin-bottom: 16px; /* Khoảng cách giữa các job */
+}
+  
+  .job-user-apply-details:hover {
+    transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng khi hover */
+  }
+  
+  .job-user-apply-logo {
+    display: block;
+    margin: 0 auto 8px;
+    width: 100px; /* Kích thước lớn hơn */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .job-user-apply-title {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 18px; /* Kích thước lớn hơn */
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .job-user-apply-item {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  
+  .job-user-apply-tag {
+    display: inline-block;
+    background-color: #e0f7fa;
+    color: #00796b;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+    gap: 8px;
+  }
+  
+  .pagination button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    align-self: center;
+  }
+  
+  .job-user-apply-h1 {
+    font-size: 40px; /* Kích thước chữ */
+    font-weight: bold; /* Đậm chữ */
+    color: #333; /* Màu chữ */
+    text-align: center; /* Canh giữa chữ */
+    padding: 10px; /* Khoảng cách bên trong */
+}
