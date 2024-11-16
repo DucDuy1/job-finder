@@ -178,7 +178,7 @@ export const applyGetUserIdAPI = async (id, navigate) => {
     }
 };
 
-export const applyGetJobIdAPI = async (id, navigate) => {
+export const applyGetJobIdAPI = async (id) => {
     const token = localStorage.getItem("accessToken");
     const config = {
         url: `/api/apply/job/${id}`,
@@ -193,6 +193,6 @@ export const applyGetJobIdAPI = async (id, navigate) => {
         return response.data;
     } catch (error) {
         console.error("Error response:", error.response);
-        throw handleAPIError(error, navigate);
+        throw handleAPIError(error);
     }
 };

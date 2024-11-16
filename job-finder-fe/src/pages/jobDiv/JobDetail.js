@@ -6,8 +6,7 @@ import '../css/comment.css'
 import { Link } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import useCommentCreate from '../../hooks/comment/useCommentCreate';
-import useCommentSearch from '../../hooks/comment/useCommentSearch';
-import { commentDeleteAPI } from '../../service/commentService';
+import { commentDeleteAPI, commentGetJobIdAPI } from '../../service/commentService';
 import useCommentUpdate from '../../hooks/comment/useCommentUpdate';
 
 const JobDetail = () => {
@@ -16,6 +15,10 @@ const JobDetail = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const currentUser = localStorage.getItem('username'); 
   const [isEditing, setIsEditing] = useState(false);
+  const [comments, setComments] = useState([]);
+  const [pageInput, setPageInput] = useState(1);
+  const [pageTotal, setPageTotal] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Hook cho tạo comment
   const {
@@ -28,18 +31,25 @@ const JobDetail = () => {
   } = useCommentCreate();
 
   // Hook cho tìm kiếm comment
-  const {
-    comments,
-    search,
-    pageTotal,
-    error: commentError,
-    pageInput,
-    previousPage,
-    nextPage,
-    goToPage,
-    handlePageInputChange,
-    goToInputPage,
-  } = useCommentSearch();
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await commentGetJobIdAPI(id); // Gọi API với job ID
+        console.log('API Response:', response); // Log dữ liệu phản hồi để kiểm tra
+        if (response.listItems) { // Kiểm tra danh sách bình luận
+          setComments(response.listItems); // Cập nhật danh sách comments
+          setPageTotal(response.pageTotal || 1); // Cập nhật tổng số trang
+          setCurrentPage(1); // Mặc định trang đầu tiên (nếu backend không trả số trang hiện tại)
+        } else {
+          console.error('Error fetching comments: No comments found');
+        }
+      } catch (error) {
+        console.error('Failed to fetch comments:', error);
+      }
+    };
+    fetchComments();
+  }, [id, currentPage]);
+
 
   // Hook cho cập nhật comment
   const {
@@ -80,7 +90,7 @@ const JobDetail = () => {
   const handleDelete = async (commentId) => {
     try {
       await commentDeleteAPI(commentId);
-      goToPage(search.page); // Cập nhật lại danh sách comment sau khi xóa
+      setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
     } catch (error) {
       console.error('Failed to delete comment:', error);
     }
@@ -167,7 +177,6 @@ const JobDetail = () => {
       {/* Comment List Section */}
       <div className="comment-list-container">
         <h2>Comments</h2>
-        {commentError && <p className="comment-error-message">Error: {commentError}</p>}
         <ul className="comment-list">
           {comments.map((comment) => (
             <li key={comment.id} className="comment-item">
@@ -184,13 +193,13 @@ const JobDetail = () => {
           ))}
         </ul>
         <div className="comment-pagination">
-          <button onClick={previousPage} disabled={search.page === 0}>
+          <button onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1}>
             Previous
           </button>
           <span>
-            Page {search.page + 1} of {pageTotal}
+            Page {currentPage} of {pageTotal}
           </span>
-          <button onClick={nextPage} disabled={search.page + 1 >= pageTotal}>
+          <button onClick={() => setCurrentPage((prev) => Math.min(pageTotal, prev + 1))} disabled={currentPage === pageTotal}>
             Next
           </button>
         </div>
@@ -198,10 +207,10 @@ const JobDetail = () => {
           <input
             type="number"
             value={pageInput}
-            onChange={handlePageInputChange}
+            onChange={(e) => setPageInput(Number(e.target.value))}
             placeholder="Go to page"
           />
-          <button onClick={goToInputPage}>Go</button>
+          <button onClick={() => setCurrentPage(pageInput)}>Go</button>
         </div>
       </div>
 
