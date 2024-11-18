@@ -29,31 +29,30 @@ public class TokenFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-        // Lấy token từ header Authorization
+        // take token form header
         final String authHeader = request.getHeader("Authorization");
         final String token;
         final String username;
-        // Kiểm tra xem header có chứa Bearer token hay không
+        // check header have bearer token or not
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        // Lấy token từ header
         token = authHeader.substring(7);
-        username = jwtService.extractUsername(token); // Lấy username từ token
-        // Xác thực người dùng với JWT token nếu username không null
+        username = jwtService.extractUsername(token); // take username from token
+        // authen user with JWT token if username not null
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            // Kiểm tra và xác thực token
+            // check and authen token
             boolean isValidToken = jwtService.isTokenValid(token, userDetails);
-            if (isValidToken) { // Nếu token hợp lệ
+            if (isValidToken) { // if token valid
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities()
                 );
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
-                // Đặt Authentication vào SecurityContext
+                // put Authentication in SecurityContext
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
-    public void addCorsMappings(CorsRegistry registry) { //cấu hình để bên FE ko bị lỗi cros
+    public void addCorsMappings(CorsRegistry registry) { //config to side FE not error cors
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE")

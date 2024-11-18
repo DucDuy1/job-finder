@@ -55,7 +55,7 @@ public class JwtServiceImpl implements JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Hàm này kiểm tra xem token có hợp lệ không (token phải trùng với UserDetails và chưa hết hạn)
+    // This funciton check token is valid or not (token must coincide with UserDetails and not expired)
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         final Claims claims = extractClaims(token);
@@ -70,7 +70,7 @@ public class JwtServiceImpl implements JwtService {
         Date expiration = claims.getExpiration();
         Date now = new Date();
         long timeRemaining = expiration.getTime() - now.getTime();
-        if (timeRemaining > 23 * 60 * 60 * 1000L) {
+        if (timeRemaining > 23 * 60 * 60 * 1000L) {  //auto refresh token when near expiration
             return null;
         }
         return Jwts.builder()

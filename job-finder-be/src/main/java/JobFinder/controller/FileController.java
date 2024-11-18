@@ -29,7 +29,6 @@ public class FileController {
         try {
             Resource resource = fileService.serveFile(fileName);
             String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-
             if (contentType == null) {
                 contentType = "application/octet-stream";
             }

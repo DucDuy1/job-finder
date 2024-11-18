@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User không tồn tại!"));
+                .orElseThrow(() -> new RuntimeException("User not found!"));
         user.setDeleted(true);
     }
 

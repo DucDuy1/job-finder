@@ -5,10 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 @Data
+@Where(clause = "is_deleted = false")
 public class UserDto {
     private Long id;
     @NotEmpty(message = "user name not empty")
@@ -20,8 +25,8 @@ public class UserDto {
     @Size(min = 8, max = 20, message = "password must be between 8 and 20 characters")
     private String password;
     private String fullName;
-//    @Email(message = "Email invalid")
-//    @Min(message = "Email must be at least 3 characters",value = 3)
+    @Email(message = "Email invalid")
+    @Min(message = "Email must be at least 3 characters",value = 3)
     private String email;
     private Integer age;
     private String avatarUrl;
