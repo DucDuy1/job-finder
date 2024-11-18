@@ -90,7 +90,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void delete(Long id) {
-        applyRepository.deleteById(id);
+       Apply apply = applyRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("id not found"));
+       apply.setDeleted(true);
     }
 
     @Override

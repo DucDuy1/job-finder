@@ -10,12 +10,13 @@ const useUserUpdate = () => {
         email: '',
         age: '',
         file: null,
+        oldPassword: '', // Thêm trường mật khẩu cũ
+        newPassword: '', // Thêm trường mật khẩu mới
     });
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
-    const [role, setRole] = useState('');
     const navigate = useNavigate();
 
     const handleChange = useCallback((e) => {
@@ -27,25 +28,16 @@ const useUserUpdate = () => {
     }, []);
 
     const updateUser = async () => {
-        console.log('Form State:', formState); // Debug dữ liệu trước khi gửi
-        setIsLoading(true);
-        setError(null);
-        setSuccess(false);
-    
         const formData = new FormData();
         Object.keys(formState).forEach((key) => {
             if (formState[key] !== undefined && formState[key] !== '') {
-                if (key === 'age') {
-                    formData.append(key, formState[key]); // Đảm bảo `age` được thêm dưới dạng số
-                } else {
-                    formData.append(key, formState[key]);
-                }
+                formData.append(key, formState[key]); // Thêm file đúng tên key
             }
         });
-    
-        console.log('FormData:', [...formData.entries()]); // Log dữ liệu gửi đến API
+
         try {
-            await userUpdateAPI(formData);
+            setIsLoading(true);
+            await userUpdateAPI(formData); // Gửi request
             setSuccess(true);
         } catch (err) {
             setError(err.message || 'An error occurred');

@@ -56,29 +56,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserDto userDto, MultipartFile file, Principal principal, String oldPassword) throws IOException {
         User existingUser = userRepository.findById(userDto.getId())
-                .orElseThrow(() -> new SystemException(new BaseResponseDto(MessageResponse.Message.NOT_FOUND,
-                        MessageResponse.Code.NOT_FOUND)));
+                .orElseThrow(() -> new SystemException(new BaseResponseDto(
+                        MessageResponse.Message.NOT_FOUND, MessageResponse.Code.NOT_FOUND)));
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (userDto.getPassword() != null && !userDto.getPassword().isEmpty()) {
             if (oldPassword == null || !passwordEncoder.matches(oldPassword, existingUser.getPassword())) {
-                throw new SystemException(new BaseResponseDto(MessageResponse.Message.INVALID_PASSWORD,
-                        MessageResponse.Code.BAD_REQUEST));
+                throw new SystemException(new BaseResponseDto(
+                        MessageResponse.Message.INVALID_PASSWORD, MessageResponse.Code.BAD_REQUEST));
             }
             userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         } else {
-            userDto.setPassword(existingUser.getPassword()); // Giữ nguyên mật khẩu cũ nếu không có thay đổi
+            userDto.setPassword(existingUser.getPassword());
         }
         if (file != null && !file.isEmpty()) {
-            String fileName = fileService.uploadFile(file);
-            userDto.setAvatarUrl(fileName);
+            String fileName = fileService.uploadFile(file); // Upload file
+            userDto.setAvatarUrl(fileName); // update new URL avatar
         } else {
-            userDto.setAvatarUrl(existingUser.getAvatarUrl());
+            userDto.setAvatarUrl(existingUser.getAvatarUrl()); // keep old avatar
         }
-        if (userDto.getPassword() == null || userDto.getPassword().isEmpty()) {
-            userDto.setPassword(existingUser.getPassword());
-        } else {
-            userDto.setPassword(new BCryptPasswordEncoder().encode(userDto.getPassword()));
-        }
+
+        // Xử lý các thông tin khác
         if (userDto.getEmail() == null || userDto.getEmail().isEmpty()) {
             userDto.setEmail(existingUser.getEmail());
         }
@@ -86,7 +83,7 @@ public class UserServiceImpl implements UserService {
             userDto.setFullName(existingUser.getFullName());
         }
         if (userDto.getAge() == null) {
-            userDto.setAge(existingUser.getAge()); // Nếu `age` từ `userDto` không được gửi, giữ nguyên giá trị cũ
+            userDto.setAge(existingUser.getAge());
         }
         if (userDto.getRole() == null) {
             userDto.setRole(existingUser.getRole());
@@ -94,13 +91,16 @@ public class UserServiceImpl implements UserService {
         if (userDto.getUsername() == null || userDto.getUsername().isEmpty()) {
             userDto.setUsername(existingUser.getUsername());
         }
+        existingUser.setPassword(userDto.getPassword());
         modelMapper.modelMapper().map(userDto, existingUser);
         userRepository.save(existingUser);
     }
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User không tồn tại!"));
+        user.setDeleted(true);
     }
 
     @Override

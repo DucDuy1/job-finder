@@ -90,7 +90,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delete(Long id) {
-        commentRepository.deleteById(id);
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("id not found"));
+        comment.setDeleted(true);
     }
 
     @Override

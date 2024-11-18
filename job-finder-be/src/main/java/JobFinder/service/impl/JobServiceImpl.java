@@ -96,7 +96,9 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void delete(Long id) {
-        jobRepository.deleteById(id);
+        Job job = jobRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("id not found"));
+        job.setDeleted(true);
     }
 
     @Override

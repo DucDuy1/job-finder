@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'; 
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import useUserUpdate from '../../hooks/user/useUserUpdate';
 import { userGetIdAPI, userGetImageAPI } from '../../service/userService';
@@ -11,17 +11,13 @@ const UserDetail = () => {
     const { formState, handleChange, updateUser, isLoading, error, success } = useUserUpdate();
     const [avatarUrl, setAvatarUrl] = useState('');
     const [isEditing, setIsEditing] = useState(null);
-    const [fileInput, setFileInput] = useState(null); // New state for storing file input
+    const [isAvatarChanged, setIsAvatarChanged] = useState(false);
 
-    // Khai báo fetchUserData với useCallback
     const fetchUserData = useCallback(async () => {
         try {
-            console.log('Setting ID:', id);
             handleChange({ target: { name: 'id', value: id } });
 
             const { data: userData } = await userGetIdAPI(id);
-            console.log('Fetched User Data:', userData);
-
             handleChange({ target: { name: 'fullName', value: userData.fullName || '' } });
             handleChange({ target: { name: 'email', value: userData.email || '' } });
             handleChange({ target: { name: 'age', value: userData.age ? parseInt(userData.age, 10) : '' } });
@@ -36,9 +32,6 @@ const UserDetail = () => {
     }, [id, handleChange]);
 
     useEffect(() => {
-        console.log('ID from useParams:', id);
-    
-        // Gọi hàm fetchUserData khi component render lần đầu
         fetchUserData();
     }, [id, fetchUserData]);
 
@@ -55,27 +48,47 @@ const UserDetail = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setFileInput(file);
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!validImageTypes.includes(file.type)) {
+                alert('Please choose a valid image file (jpg, png, gif).');
+                return;
+            }
+            setIsAvatarChanged(true);
+            handleChange({ target: { name: 'file', files: e.target.files } });
+
             const reader = new FileReader();
             reader.onloadend = () => {
-                setAvatarUrl(reader.result); // Update avatar URL to the new file
+                setAvatarUrl(reader.result);
             };
-            reader.readAsDataURL(file); // Convert the file to a base64 string
+            reader.readAsDataURL(file);
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await updateUser();
-        if (success) {
-            fetchUserData(); // Gọi lại fetchUserData khi update thành công
+        if (formState.oldPassword && !formState.newPassword) {
+            alert('Please enter a new password if you want to change the old one.');
+            return;
         }
-        setIsEditing(null);
+        if (formState.newPassword && !formState.oldPassword) {
+            alert('Please provide the old password to confirm changes.');
+            return;
+        }
+        try {
+            await updateUser();
+
+            if (success) {
+                fetchUserData();
+                setIsEditing(null);
+                setIsAvatarChanged(false);
+            }
+        } catch (err) {
+            console.error('Error during update:', err);
+        }
     };
 
     return (
         <div className="userDetail-container">
-            {/* Navbar */}
             <div className="userDetail-navbar">
                 <Link to="/" className="userDetail-home-link">
                     <FaHome size={24} className="userDetail-home-icon" />
@@ -83,16 +96,14 @@ const UserDetail = () => {
                 </Link>
             </div>
 
-            {/* User Header */}
             <div className="userDetail-header">
-                {/* Chỉnh sửa avatar để click vào và thay đổi */}
                 <div className="userDetail-avatar-container">
                     {avatarUrl ? (
                         <img
                             src={avatarUrl}
                             alt="User Avatar"
                             className="userDetail-avatar"
-                            onClick={() => document.getElementById('avatarInput').click()} // Khi click vào avatar, mở hộp thoại chọn ảnh
+                            onClick={() => document.getElementById('avatarInput').click()}
                         />
                     ) : (
                         <p>No avatar available</p>
@@ -101,62 +112,137 @@ const UserDetail = () => {
                         type="file"
                         id="avatarInput"
                         className="userDetail-avatar-input"
-                        style={{ display: 'none' }} // Ẩn input file
+                        style={{ display: 'none' }}
+                        accept="image/*"
                         onChange={handleFileChange}
                     />
-                    {/* Thêm thông báo "Click để thay đổi avatar" */}
                     <p className="userDetail-avatar-change-text">Click to change avatar</p>
                 </div>
                 <h2>{formState.username || 'No data available'}</h2>
-                <p className="userDetail-email">{formState.email || 'No data available'}</p>
             </div>
 
-            {/* User Details */}
-            <div className="userDetail-info">
-                {renderEditableField('Full Name', formState.fullName, 'fullName')}
-                {renderEditableField('Email', formState.email, 'email')}
-                {renderEditableField('Age', formState.age, 'age', 'number')}
-            </div>
+            <form onSubmit={handleSubmit} className="userDetail-info">
+                <div className="userDetail-row">
+                    <label className="userDetail-label">Full Name:</label>
+                    {isEditing === 'fullName' ? (
+                        <div className="userDetail-value">
+                            <input
+                                type="text"
+                                name="fullName"
+                                value={formState.fullName || ''}
+                                onChange={handleChange}
+                                className="userDetail-input"
+                            />
+                        </div>
+                    ) : (
+                        <div className="userDetail-value">
+                            <span>{formState.fullName || 'No data available'}</span>
+                            <EditIcon className="userDetail-icon" onClick={() => setIsEditing('fullName')} />
+                        </div>
+                    )}
+                </div>
 
-            {/* Error & Success Messages */}
+                <div className="userDetail-row">
+                    <label className="userDetail-label">Email:</label>
+                    {isEditing === 'email' ? (
+                        <div className="userDetail-value">
+                            <input
+                                type="email"
+                                name="email"
+                                value={formState.email || ''}
+                                onChange={handleChange}
+                                className="userDetail-input"
+                            />
+                        </div>
+                    ) : (
+                        <div className="userDetail-value">
+                            <span>{formState.email || 'No data available'}</span>
+                            <EditIcon className="userDetail-icon" onClick={() => setIsEditing('email')} />
+                        </div>
+                    )}
+                </div>
+
+                <div className="userDetail-row">
+                    <label className="userDetail-label">Age:</label>
+                    {isEditing === 'age' ? (
+                        <div className="userDetail-value">
+                            <input
+                                type="number"
+                                name="age"
+                                value={formState.age || ''}
+                                onChange={handleChange}
+                                className="userDetail-input"
+                            />
+                        </div>
+                    ) : (
+                        <div className="userDetail-value">
+                            <span>{formState.age || 'No data available'}</span>
+                            <EditIcon className="userDetail-icon" onClick={() => setIsEditing('age')} />
+                        </div>
+                    )}
+                </div>
+
+                <div className="userDetail-row">
+                    <label className="userDetail-label">
+                        {isEditing === 'password' ? 'Old Password:' : 'Change Password:'}
+                    </label>
+                    {isEditing === 'password' ? (
+                        <div className="userDetail-value">
+                            <input
+                                type="password"
+                                name="oldPassword"
+                                value={formState.oldPassword || ''}
+                                onChange={handleChange}
+                                className="userDetail-input"
+                            />
+                        </div>
+                    ) : (
+                        <div className="userDetail-value">
+                            <span>******</span>
+                            <EditIcon className="userDetail-icon" onClick={() => setIsEditing('password')} />
+                        </div>
+                    )}
+                </div>
+
+                {isEditing === 'password' && (
+                    <div className="userDetail-row">
+                        <label className="userDetail-label">New Password:</label>
+                        <div className="userDetail-value">
+                            <input
+                                type="password"
+                                name="newPassword"
+                                value={formState.newPassword || ''}
+                                onChange={handleChange}
+                                className="userDetail-input"
+                            />
+                        </div>
+                    </div>
+                )}
+
+                {(isEditing || isAvatarChanged) && (
+                    <div className="userDetail-actions userDetail-actions-global">
+                        <button type="submit" className="userDetail-save-all" disabled={isLoading}>
+                            Save All
+                        </button>
+                        <button
+                            type="button"
+                            className="userDetail-cancel-all"
+                            onClick={() => {
+                                fetchUserData();
+                                setIsEditing(null);
+                                setIsAvatarChanged(false);
+                            }}
+                        >
+                            Cancel All
+                        </button>
+                    </div>
+                )}
+            </form>
+
             {error && <p className="error-message">Error: {error}</p>}
             {success && <p className="success-message">User updated successfully!</p>}
         </div>
     );
-
-    function renderEditableField(label, value, field, type = 'text', onChange = null) {
-        return (
-            <div className="userDetail-row">
-                <label className="userDetail-label">{label}:</label>
-                {isEditing === field ? (
-                    <div className="userDetail-value">
-                        {type === 'file' ? (
-                            <input type="file" onChange={onChange} className="userDetail-avatar-input" />
-                        ) : (
-                            <input
-                                type={type}
-                                name={field}
-                                value={value || ''}
-                                onChange={handleChange}
-                                className="userDetail-input"
-                            />
-                        )}
-                        <div className="userDetail-actions">
-                            <button onClick={handleSubmit} disabled={isLoading}>
-                                Save
-                            </button>
-                            <button onClick={() => setIsEditing(null)}>Cancel</button>
-                        </div>
-                    </div>
-                ) : (
-                    <div className="userDetail-value">
-                        <span>{value || 'No data available'}</span>
-                        <EditIcon className="userDetail-icon" onClick={() => setIsEditing(field)} />
-                    </div>
-                )}
-            </div>
-        );
-    }
 };
 
 export default UserDetail;

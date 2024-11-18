@@ -8,4 +8,5 @@ public class UserApplyStatsDto {
     private String countUserApply;
     private String nameCompany;
     private String title;
+    private Boolean isDelete;
 }
