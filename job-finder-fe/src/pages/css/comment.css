@@ -1,211 +1,340 @@
 /* Animation Fade-in (Giữ lại cho toàn bộ trang) */
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Container chính cho căn giữa và hiệu ứng fade-in */
-  .comment-list-container,
-  .comment-form-container {
-    margin: 20px auto;
-    padding: 30px;
-    max-width: 1300px;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease-in-out;
-    transition: box-shadow 0.3s ease-in-out;
-  }
-  
-  .comment-list-container:hover,
-  .comment-form-container:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Tiêu đề */
-  .comment-list-container h2,
-  .comment-form-container h2 {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  /* Thông báo lỗi */
-  .comment-error-message {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  /* Danh sách bình luận */
-  .comment-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .comment-item {
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .comment-item:last-child {
-    border-bottom: none;
-  }
-  
-  .comment-item div {
-    font-size: 12px;
-    color: #777;
-  }
-  
-  .comment-item strong {
-    display: block;
-    margin-top: 5px;
-    color: #444;
-    font-weight: bold;
-  }
-  
-  /* Phân trang */
-  .comment-pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-  }
-  
-  .comment-pagination button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe);
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .comment-pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .comment-pagination button:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Chuyển đến trang cụ thể */
-  .go-to-page {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .go-to-page input {
-    width: 60px;
-    padding: 5px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  .go-to-page button {
-    padding: 8px 12px;
-    border-radius: 8px;
-    background: linear-gradient(270deg, #74b9ff, #0984e3);
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s;
-  }
-  
-  .go-to-page button:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Form Tạo Bình Luận */
-  .comment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .comment-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .comment-form-group label {
-    font-weight: bold;
-    color: #333;
-  }
-  
-  .comment-form-group textarea {
-    resize: vertical;
-    min-height: 80px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border-color 0.3s;
-  }
-  
-  .comment-form-group textarea:focus {
-    border-color: #6c5ce7;
-    outline: none;
-  }
-  
-  /* Nút Gửi Bình Luận */
-  .comment-form button {
-    align-self: flex-start;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe);
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .comment-form button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 
-  .comment-btn {
-    padding: 6px 12px; /* Khoảng cách bên trong */
-    border: none; /* Không có viền */
-    border-radius: 12px; /* Góc bo tròn */
-    background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe); /* Màu nền gradient */
-    background-size: 400% 400%; /* Kích thước nền */
-    cursor: pointer; /* Thay đổi con trỏ khi hover */
-    transition: transform 0.3s ease, box-shadow 0.3s; /* Hiệu ứng chuyển đổi */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ */
-    animation: gradient-animation 8s ease-in-out infinite; /* Hoạt ảnh gradient */
-    font-size: 12px; /* Kích thước chữ nhỏ */
-    margin-right: 6px; /* Khoảng cách giữa các nút */
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Hiệu ứng khi hover */
-  .comment-btn:hover {
-    transform: scale(1.05); /* Phóng to khi hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bóng đổ mạnh hơn khi hover */
+}
+
+/* Container chính cho căn giữa và hiệu ứng fade-in */
+.comment-list-container,
+.comment-form-container {
+  margin: 20px auto;
+  padding: 30px;
+  max-width: 1300px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.comment-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comment-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px 10px;
+  border-bottom: 1px dashed #ccc;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+/* Header chứa avatar, tên và thời gian */
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.comment-user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.comment-username {
+  font-weight: bold;
+  font-size: 18px !important;
+  color: #333;
+}
+
+.comment-createAt {
+  font-size: 18px !important;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* Nội dung bình luận */
+.comment-content {
+  margin: 10px 0;
+  color: #555;
+  line-height: 1.6;
+  font-size: 1em;
+}
+
+/* Nút hành động */
+.comment-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.comment-list-container:hover,
+.comment-form-container:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề */
+.comment-list-container h2,
+.comment-form-container h2 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Thông báo lỗi */
+.comment-error-message {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Danh sách bình luận */
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comment-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-item div {
+  font-size: 12px;
+  color: #777;
+}
+
+.comment-item strong {
+  display: block;
+  margin-top: 5px;
+  color: #444;
+  font-weight: bold;
+}
+
+/* Phân trang */
+.comment-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comment-pagination button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.comment-pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.comment-pagination button:hover {
+  transform: scale(1.05);
+}
+
+/* Chuyển đến trang cụ thể */
+.go-to-page {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.go-to-page input {
+  width: 60px;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.go-to-page button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: linear-gradient(270deg, #74b9ff, #0984e3);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.go-to-page button:hover {
+  transform: scale(1.05);
+}
+
+/* Form Tạo Bình Luận */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.comment-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.comment-form-group label {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.comment-form-group textarea:focus {
+  border-color: #6c5ce7;
+  outline: none;
+}
+
+/* Nút Gửi Bình Luận */
+.comment-form button {
+  align-self: flex-start;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.comment-btn {
+  padding: 6px 12px;
+  /* Khoảng cách bên trong */
+  border: none;
+  /* Không có viền */
+  border-radius: 12px;
+  /* Góc bo tròn */
+  background: linear-gradient(270deg, #6c5ce7, #74b9ff, #a29bfe);
+  /* Màu nền gradient */
+  background-size: 400% 400%;
+  /* Kích thước nền */
+  cursor: pointer;
+  /* Thay đổi con trỏ khi hover */
+  transition: transform 0.3s ease, box-shadow 0.3s;
+  /* Hiệu ứng chuyển đổi */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Bóng đổ */
+  animation: gradient-animation 8s ease-in-out infinite;
+  /* Hoạt ảnh gradient */
+  font-size: 15px;
+  /* Kích thước chữ nhỏ */
+  margin-right: 20px;
+  /* Khoảng cách giữa các nút */
+}
+
+/* Hiệu ứng khi hover */
+.comment-btn:hover {
+  transform: scale(1.05);
+  /* Phóng to khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Bóng đổ mạnh hơn khi hover */
+}
+
+/* Định nghĩa hoạt ảnh cho gradient */
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  /* Định nghĩa hoạt ảnh cho gradient */
-  @keyframes gradient-animation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+
+  50% {
+    background-position: 100% 50%;
   }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Phần bình luận */
+.comment-section {
+  margin-top: 10px;
+  /* Tăng khoảng cách với phần trên */
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  /* Tăng padding trên */
+  font-size: 1.1em;
+  /* Tăng kích thước font chữ */
+}
+
+/* Mỗi phần bình luận */
+.comment-item {
+  margin-bottom: 25px;
+  /* Tăng khoảng cách giữa các bình luận */
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 15px;
+  /* Tăng padding dưới */
+  font-size: 20px;
+  /* Tăng kích thước chữ cho nội dung */
+}
+
+/* Tên người dùng trong bình luận */
+.comment-user {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  /* Tăng khoảng cách dưới tên */
+  font-size: 1.3em;
+  /* Tăng kích thước chữ cho tên người dùng */
+}
+
+/* Nội dung bình luận */
+.comment-content {
+  margin-bottom: 10px;
+  color: #555;
+  line-height: 1.8;
+  /* Tăng chiều cao dòng để dễ đọc hơn */
+  font-size: 1.1em;
+  /* Tăng kích thước font chữ */
+}
+
+.comment-item div.createAt {
+  font-size: 16px;
+  color: #555;
+  font-weight: bold;
+  transition: transform 0.3s ease, color 0.3s ease;
+}

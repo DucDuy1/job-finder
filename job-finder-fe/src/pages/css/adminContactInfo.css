@@ -302,7 +302,8 @@
 .adminContactInfo-posting-section {
     font-size: 20px;
     padding: 20px;
-    color: #eceaea; /* Thêm màu chữ */
+    color: #eceaea;
+    /* Thêm màu chữ */
 }
 
 .adminContactInfo-posting-section h2 {
@@ -330,8 +331,9 @@
     padding: 15px;
     border-radius: 8px;
     background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    color: #333; /* Thêm màu chữ */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #333;
+    /* Thêm màu chữ */
 }
 
 .adminContactInfo-job-card h3 {
@@ -399,18 +401,24 @@
 }
 
 .adminContactInfo-contact-item {
-    display: flex; /* Hiển thị theo hàng ngang */
-    align-items: center; /* Canh giữa theo chiều dọc */
-    margin-bottom: 10px; /* Tạo khoảng cách giữa các item */
+    display: flex;
+    /* Hiển thị theo hàng ngang */
+    align-items: center;
+    /* Canh giữa theo chiều dọc */
+    margin-bottom: 10px;
+    /* Tạo khoảng cách giữa các item */
 }
 
 .adminContactInfo-contact-item .icon {
-    margin-right: 10px; /* Khoảng cách giữa icon và văn bản */
-    color: #3498db; /* Màu icon tùy chỉnh */
-    font-size: 35px; /* Tùy chỉnh kích thước icon */
+    margin-right: 10px;
+    /* Khoảng cách giữa icon và văn bản */
+    color: #3498db;
+    /* Màu icon tùy chỉnh */
+    font-size: 35px;
+    /* Tùy chỉnh kích thước icon */
 }
 
 .adminContactInfo-contact-item p {
-    margin: 0; /* Loại bỏ khoảng trắng mặc định của <p> */
+    margin: 0;
+    /* Loại bỏ khoảng trắng mặc định của <p> */
 }
-

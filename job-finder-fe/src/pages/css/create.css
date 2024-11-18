@@ -3,6 +3,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -14,6 +15,7 @@
     transform: scale(0.8);
     opacity: 0;
   }
+
   to {
     transform: scale(1);
     opacity: 1;
@@ -25,15 +27,19 @@
   0% {
     transform: translateX(-10px);
   }
+
   25% {
     transform: translateX(10px);
   }
+
   50% {
     transform: translateX(-10px);
   }
+
   75% {
     transform: translateX(10px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -44,19 +50,24 @@
   from {
     background-size: 20px;
   }
+
   to {
     background-size: 24px;
   }
 }
 
 .create-container {
-  max-width: 1200px; /* Tăng chiều rộng tối đa của form */
+  max-width: 1200px;
+  /* Tăng chiều rộng tối đa của form */
   width: 100%;
   background: #ffffff;
-  padding: 50px; /* Tăng khoảng cách padding cho form */
+  padding: 50px;
+  /* Tăng khoảng cách padding cho form */
   border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Tăng độ bóng */
-  margin: 30px auto; /* Tăng khoảng cách trên và dưới */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  /* Tăng độ bóng */
+  margin: 30px auto;
+  /* Tăng khoảng cách trên và dưới */
   position: relative;
   overflow: hidden;
   animation: fadeIn 1s ease-out;
@@ -64,11 +75,14 @@
 
 /* Tiêu đề lớn hơn */
 .create-container h1 {
-  font-size: 36px; /* Tăng kích thước chữ */
+  font-size: 36px;
+  /* Tăng kích thước chữ */
   color: #2196F3;
   text-align: center;
-  margin-bottom: 40px; /* Tăng khoảng cách dưới tiêu đề */
-  font-weight: 700; /* Chữ đậm hơn */
+  margin-bottom: 40px;
+  /* Tăng khoảng cách dưới tiêu đề */
+  font-weight: 700;
+  /* Chữ đậm hơn */
   letter-spacing: 1.5px;
   animation: titleReveal 1s ease-out;
 }
@@ -78,15 +92,19 @@
 .create-container textarea,
 .create-container select {
   width: 100%;
-  padding: 16px 20px; /* Tăng padding để trường nhập lớn hơn */
-  margin: 12px 0; /* Tăng khoảng cách giữa các trường */
+  padding: 16px 20px;
+  /* Tăng padding để trường nhập lớn hơn */
+  margin: 12px 0;
+  /* Tăng khoảng cách giữa các trường */
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   background: #ffffff;
-  font-size: 18px; /* Tăng kích thước chữ trong các trường */
+  font-size: 18px;
+  /* Tăng kích thước chữ trong các trường */
   transition: all 0.3s ease;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  color: #333; /* Đảm bảo màu chữ dễ đọc */
+  color: #333;
+  /* Đảm bảo màu chữ dễ đọc */
 }
 
 /* Hiệu ứng hover cho các trường nhập liệu */
@@ -99,7 +117,8 @@
 
 /* Nhãn lớn hơn */
 .create-container label {
-  font-size: 18px; /* Tăng kích thước chữ nhãn */
+  font-size: 18px;
+  /* Tăng kích thước chữ nhãn */
   color: #333;
   font-weight: 500;
   margin: 14px 0 8px;
@@ -110,11 +129,14 @@
 /* Nút submit lớn hơn */
 .create-container button {
   width: 100%;
-  padding: 18px; /* Tăng padding cho nút */
-  margin-top: 25px; /* Tăng khoảng cách trên nút */
+  padding: 18px;
+  /* Tăng padding cho nút */
+  margin-top: 25px;
+  /* Tăng khoảng cách trên nút */
   border: none;
   border-radius: 10px;
-  font-size: 18px; /* Tăng kích thước chữ nút */
+  font-size: 18px;
+  /* Tăng kích thước chữ nút */
   font-weight: 700;
   color: white;
   background: linear-gradient(45deg, #2196F3, #00BCD4);
@@ -142,7 +164,8 @@
   padding: 12px;
   border-radius: 8px;
   margin: 12px 0;
-  font-size: 16px; /* Tăng kích thước chữ của tin nhắn lỗi */
+  font-size: 16px;
+  /* Tăng kích thước chữ của tin nhắn lỗi */
   text-align: center;
   animation: errorShake 0.5s ease-in-out;
 }
@@ -153,23 +176,27 @@
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
   background-repeat: no-repeat;
   background-position: right 15px center;
-  background-size: 20px; /* Tăng kích thước của mũi tên */
+  background-size: 20px;
+  /* Tăng kích thước của mũi tên */
   transition: background-size 0.3s ease;
 }
 
 /* Responsive cho thiết bị nhỏ hơn */
 @media (max-width: 768px) {
   .create-container {
-    padding: 30px; /* Giảm padding để phù hợp với thiết bị nhỏ */
+    padding: 30px;
+    /* Giảm padding để phù hợp với thiết bị nhỏ */
     margin: 10px;
   }
 
   .create-container h1 {
-    font-size: 28px; /* Giảm kích thước tiêu đề trên màn hình nhỏ */
+    font-size: 28px;
+    /* Giảm kích thước tiêu đề trên màn hình nhỏ */
   }
 
   .create-container button {
-    padding: 16px; /* Giảm padding cho nút trên màn hình nhỏ */
+    padding: 16px;
+    /* Giảm padding cho nút trên màn hình nhỏ */
     font-size: 17px;
   }
 }

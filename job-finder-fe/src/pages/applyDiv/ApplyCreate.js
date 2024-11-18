@@ -29,13 +29,13 @@ const ApplyCreate = () => {
     console.log(jobId);
     return (
         <div className="create-container animate__animated animate__fadeIn">
-            <h1 className="animate__animated animate__bounceIn">Create Apply</h1>
+            <h1 className="animate__animated animate__bounceIn">Apply</h1>
             {error && (
                 <p className="error-message animate__animated animate__shakeX">
                     {error}
                 </p>
             )}
-            <form onSubmit={handleSubmit}> {/* Không cần truyền thêm dữ liệu */}
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>File CV:</label>
                     <input

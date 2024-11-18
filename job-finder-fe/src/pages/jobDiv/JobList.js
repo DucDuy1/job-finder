@@ -80,7 +80,7 @@ const JobList = () => {
       {/* Pagination controls */}
       <div className="job-list-pagination-controls">
         <button onClick={previousPage} className="job-list-pagination-button" disabled={search.page <= 0}>Previous</button>
-        
+
         {/* Current Page Indicator */}
         <span className="job-list-pagination-page-indicator">
           {Array.from({ length: pageTotal }, (_, index) => (

@@ -1,16 +1,19 @@
 .job-list__header {
   display: flex;
-  justify-content: center; /* Đặt nội dung vào giữa */
+  justify-content: center;
+  /* Đặt nội dung vào giữa */
   align-items: center;
   padding: 10px;
   background-color: #f4f4f4;
   border-bottom: 2px solid #ccc;
-  position: relative; /* Để giữ nút Home trong layout */
+  position: relative;
+  /* Để giữ nút Home trong layout */
 }
 
 .job-list__home-button {
   position: absolute;
-  left: 10px; /* Đặt nút Home về bên trái */
+  left: 10px;
+  /* Đặt nút Home về bên trái */
   padding: 5px 10px;
   text-decoration: none;
   color: #333;

@@ -8,12 +8,14 @@ import { FaHome } from 'react-icons/fa';
 import useCommentCreate from '../../hooks/comment/useCommentCreate';
 import { commentDeleteAPI, commentGetJobIdAPI } from '../../service/commentService';
 import useCommentUpdate from '../../hooks/comment/useCommentUpdate';
+import { format } from 'date-fns';
+import { userGetImageAPI } from '../../service/userService';
 
 const JobDetail = () => {
   const { id } = useParams();
   const [jobDetails, setJobDetails] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const currentUser = localStorage.getItem('username'); 
+  const currentUser = localStorage.getItem('username');
   const [isEditing, setIsEditing] = useState(false);
   const [comments, setComments] = useState([]);
   const [pageInput, setPageInput] = useState(1);
@@ -35,11 +37,23 @@ const JobDetail = () => {
     const fetchComments = async () => {
       try {
         const response = await commentGetJobIdAPI(id); // Gọi API với job ID
-        console.log('API Response:', response); // Log dữ liệu phản hồi để kiểm tra
-        if (response.listItems) { // Kiểm tra danh sách bình luận
-          setComments(response.listItems); // Cập nhật danh sách comments
+        if (response.listItems) {
+          // Lấy danh sách comments ban đầu
+          const commentsWithAvatars = await Promise.all(
+            response.listItems.map(async (comment) => {
+              try {
+                const avatarBlob = await userGetImageAPI(comment.user.avatarUrl);
+                const avatarUrl = URL.createObjectURL(avatarBlob);
+                return { ...comment, user: { ...comment.user, avatarUrl } }; // Thêm URL blob vào comment
+              } catch {
+                console.error("Error fetching avatar for user:", comment.user.id);
+                return { ...comment, user: { ...comment.user, avatarUrl: '/default-avatar.png' } }; // Avatar mặc định nếu lỗi
+              }
+            })
+          );
+          setComments(commentsWithAvatars); // Cập nhật danh sách comments với avatar
           setPageTotal(response.pageTotal || 1); // Cập nhật tổng số trang
-          setCurrentPage(1); // Mặc định trang đầu tiên (nếu backend không trả số trang hiện tại)
+          setCurrentPage(1); // Mặc định trang đầu tiên
         } else {
           console.error('Error fetching comments: No comments found');
         }
@@ -49,7 +63,6 @@ const JobDetail = () => {
     };
     fetchComments();
   }, [id, currentPage]);
-
 
   // Hook cho cập nhật comment
   const {
@@ -115,17 +128,19 @@ const JobDetail = () => {
   if (!jobDetails) {
     return <div>Loading...</div>;
   }
-  
+
   return (
     <div className="job-details-background">
       <div className="job-details-container">
+        {/* Thanh điều hướng */}
         <div className="jobDetail-navbar">
           <Link to="/" className="jobDetail-home-link">
             <FaHome size={24} className="jobDetail-home-icon" />
             <span className="jobDetail-home-text">Home</span>
           </Link>
         </div>
-        
+
+        {/* Thông tin chi tiết công việc */}
         <div className="job-details">
           {imageUrl && (
             <img src={imageUrl} alt={jobDetails.nameCompany || 'Job Logo'} className="job-logo" />
@@ -174,32 +189,111 @@ const JobDetail = () => {
         </div>
       </div>
 
-      {/* Comment List Section */}
+      {/* Form tạo bình luận */}
+      <div className="comment-form-container">
+        <h2>Create a Comment</h2>
+        {!isEditing && (
+          <form onSubmit={handleCreateSubmit} className="comment-form">
+            <div className="comment-form-group">
+              <label>Comment Content:</label>
+              <textarea
+                name="content"
+                value={createFormState.content}
+                onChange={handleCommentCreateChange}
+                required
+              />
+            </div>
+            <button type="submit" className="jobDetail-btn" disabled={isCreating}>
+              {isCreating ? 'Submitting...' : 'Submit Comment'}
+            </button>
+            {createSuccess && <p className="success-message">Comment submitted successfully!</p>}
+            {createError && <p className="error-message">Error: {createError}</p>}
+          </form>
+        )}
+      </div>
+
+      {/* Danh sách bình luận */}
       <div className="comment-list-container">
         <h2>Comments</h2>
         <ul className="comment-list">
           {comments.map((comment) => (
             <li key={comment.id} className="comment-item">
-              <div>{comment.createAt}</div>
-              <strong>{comment.user.username || 'Anonymous'}:</strong> {comment.content}
+              <div className="comment-header">
+                <img
+                  src={comment.user.avatarUrl}
+                  alt={`${comment.user.name}'s avatar`}
+                  className="comment-avatar"
+                />
+                <div className="comment-user-info">
+                  <strong className="comment-username">{comment.user.username || 'Anonymous'}</strong>
+                  <div className="comment-createAt">
+                    {format(new Date(comment.createAt), 'dd/MM/yyyy HH:mm')}
+                  </div>
+                </div>
+              </div>
+
+              <p className="comment-content">{comment.content}</p>
 
               {currentUser === comment.user.username && (
-                <div>
-                  <button className="comment-btn" onClick={() => handleEdit(comment)}>Update</button>
-                  <button className="comment-btn" onClick={() => handleDelete(comment.id)}>Delete</button>
+                <div className="comment-actions">
+                  <button className="comment-btn" onClick={() => handleEdit(comment)}>
+                    Update
+                  </button>
+                  <button className="comment-btn" onClick={() => handleDelete(comment.id)}>
+                    Delete
+                  </button>
+                </div>
+              )}
+
+              {/* Hiển thị form chỉnh sửa ngay bên dưới comment khi người dùng nhấn nút Update */}
+              {isEditing && updateFormState.id === comment.id && (
+                <div className="comment-update-form">
+                  <form onSubmit={updateComment} className="comment-form">
+                    <div className="comment-form-group">
+                      <label>Update Content:</label>
+                      <textarea
+                        name="content"
+                        value={updateFormState.content}
+                        onChange={handleCommentUpdateChange}
+                        required
+                      />
+                    </div>
+                    <div className="comment-update-actions">
+                      <button type="submit" className="jobDetail-btn" disabled={isUpdating}>
+                        {isUpdating ? 'Updating...' : 'Save'}
+                      </button>
+                      <button
+                        type="button"
+                        className="comment-btn cancel-btn"
+                        onClick={() => setIsEditing(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    {updateSuccess && <p className="success-message">Comment updated successfully!</p>}
+                    {updateError && <p className="error-message">Error: {updateError}</p>}
+                  </form>
                 </div>
               )}
             </li>
           ))}
         </ul>
+
+        {/* Phân trang */}
         <div className="comment-pagination">
-          <button onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))} disabled={currentPage === 1}>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+          >
             Previous
           </button>
           <span>
             Page {currentPage} of {pageTotal}
           </span>
-          <button onClick={() => setCurrentPage((prev) => Math.min(pageTotal, prev + 1))} disabled={currentPage === pageTotal}>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(pageTotal, prev + 1))}
+            disabled={currentPage === pageTotal}
+          >
             Next
           </button>
         </div>
@@ -213,61 +307,6 @@ const JobDetail = () => {
           <button onClick={() => setCurrentPage(pageInput)}>Go</button>
         </div>
       </div>
-
-      {/* Comment Creation Form */}
-      {!isEditing && (
-        <div className="comment-form-container">
-          <h2>Create a Comment</h2>
-          <form onSubmit={handleCreateSubmit} className="comment-form">
-            <div className="comment-form-group">
-              <label>Comment Content:</label>
-              <textarea
-                name="content"
-                value={createFormState.content}
-                onChange={handleCommentCreateChange}
-                required
-              />
-            </div>
-
-            <button type="submit" className="jobDetail-btn" disabled={isCreating}>
-              {isCreating ? 'Submitting...' : 'Submit Comment'}
-            </button>
-            {createSuccess && <p className="success-message">Comment submitted successfully!</p>}
-            {createError && <p className="error-message">Error: {createError}</p>}
-          </form>
-        </div>
-      )}
-
-      {/* Comment Update Form */}
-      {updateFormState.id && isEditing && (
-        <div className="comment-form-container">
-          <h2>Update Comment</h2>
-          <form onSubmit={updateComment} className="comment-form">
-            <div className="comment-form-group">
-              <label>Update Content:</label>
-              <textarea
-                name="content"
-                value={updateFormState.content}
-                onChange={handleCommentUpdateChange}
-                required
-              />
-            </div>
-
-            <button type="submit" className="jobDetail-btn" disabled={isUpdating}>
-              {isUpdating ? 'Updating...' : 'Update Comment'}
-            </button>
-            <button
-              type="button"
-              className="comment-btn cancel-btn"
-              onClick={() => setIsEditing(false)} // Hủy chế độ chỉnh sửa
-            >
-              Cancel
-            </button>
-            {updateSuccess && <p className="success-message">Comment updated successfully!</p>}
-            {updateError && <p className="error-message">Error: {updateError}</p>}
-          </form>
-        </div>
-      )}
     </div>
   );
 };

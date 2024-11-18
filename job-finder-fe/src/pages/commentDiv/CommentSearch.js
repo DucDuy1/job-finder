@@ -46,7 +46,7 @@ const CommentSearch = () => {
         </thead>
         <tbody>
           {comments.map(({ id, content, createAt, user, job }) => (
-            
+
             <tr key={id}>
               <td>{id}</td>
               <td>{content}</td>

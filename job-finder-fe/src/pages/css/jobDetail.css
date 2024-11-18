@@ -3,6 +3,7 @@
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -11,9 +12,12 @@
 
 /* Animation nhấp nháy cho nội dung chi tiết */
 @keyframes blink {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -25,41 +29,54 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
-  min-height: 100vh; /* Đảm bảo full màn hình */
-  animation: fadeIn 0.8s ease-in-out; /* Thêm hiệu ứng fade-in */
+  min-height: 100vh;
+  /* Đảm bảo full màn hình */
+  animation: fadeIn 0.8s ease-in-out;
+  /* Thêm hiệu ứng fade-in */
 }
 
 /* Nội dung chi tiết */
 .job-details {
   width: 100%;
-  max-width: 1300px; /* Tăng chiều rộng tối đa */
-  padding: 40px; /* Tăng padding cho nội dung */
+  max-width: 1300px;
+  /* Tăng chiều rộng tối đa */
+  padding: 40px;
+  /* Tăng padding cho nội dung */
   background-color: white;
+  margin-bottom: 10px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease-in-out; /* Hiệu ứng hover */
-  animation: blink 1.5s ease-in-out; /* Hiệu ứng nhấp nháy */
+  transition: box-shadow 0.3s ease-in-out;
+  /* Hiệu ứng hover */
+  animation: blink 1.5s ease-in-out;
+  /* Hiệu ứng nhấp nháy */
 }
 
 .job-details:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow lớn hơn khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Shadow lớn hơn khi hover */
 }
 
 /* Logo nhỏ, ở giữa */
 .job-logo {
-  width: 120px; /* Tăng kích thước logo */
-  height: 120px; /* Tăng kích thước logo */
+  width: 120px;
+  /* Tăng kích thước logo */
+  height: 120px;
+  /* Tăng kích thước logo */
   object-fit: cover;
   border-radius: 50%;
   display: block;
   margin: 0 auto 20px;
   border: 2px solid #ddd;
-  transition: transform 0.3s ease-in-out, border-color 0.3s; /* Hiệu ứng khi hover */
+  transition: transform 0.3s ease-in-out, border-color 0.3s;
+  /* Hiệu ứng khi hover */
 }
 
 .job-logo:hover {
-  transform: scale(1.1); /* Phóng to nhẹ khi hover */
-  border-color: #0984e3; /* Đổi màu viền */
+  transform: scale(1.1);
+  /* Phóng to nhẹ khi hover */
+  border-color: #0984e3;
+  /* Đổi màu viền */
 }
 
 /* Tiêu đề công việc */
@@ -68,23 +85,29 @@
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
-  transition: color 0.3s ease-in-out, transform 0.2s ease; /* Hiệu ứng chuyển động */
+  transition: color 0.3s ease-in-out, transform 0.2s ease;
+  /* Hiệu ứng chuyển động */
 }
 
 .job-title:hover {
-  color: #0984e3; /* Đổi màu tiêu đề khi hover */
-  transform: translateY(-2px); /* Di chuyển lên một chút */
+  color: #0984e3;
+  /* Đổi màu tiêu đề khi hover */
+  transform: translateY(-2px);
+  /* Di chuyển lên một chút */
 }
 
 /* Các phần tử chi tiết */
 .detail-item {
   margin: 10px 0;
-  transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out; /* Hiệu ứng hover */
+  transition: transform 0.2s ease-in-out, background-color 0.3s ease-in-out;
+  /* Hiệu ứng hover */
 }
 
 .detail-item:hover {
-  transform: scale(1.02); /* Phóng to nhẹ khi hover */
-  background-color: #f1f1f1; /* Đổi màu nền khi hover */
+  transform: scale(1.02);
+  /* Phóng to nhẹ khi hover */
+  background-color: #f1f1f1;
+  /* Đổi màu nền khi hover */
 }
 
 .detail-item p {
@@ -104,12 +127,15 @@
   color: white;
   border-radius: 20px;
   font-size: 14px;
-  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out; /* Hiệu ứng hover */
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  /* Hiệu ứng hover */
 }
 
 .job-tag:hover {
-  background-color: #074c8c; /* Đổi màu tag khi hover */
-  transform: rotateY(5deg); /* Hiệu ứng lật nhẹ khi hover */
+  background-color: #074c8c;
+  /* Đổi màu tag khi hover */
+  transform: rotateY(5deg);
+  /* Hiệu ứng lật nhẹ khi hover */
 }
 
 
@@ -118,9 +144,11 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -128,9 +156,12 @@
 
 /* Animation nhấp nháy nhẹ cho icon */
 @keyframes jobDetail-iconPulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.2);
   }
@@ -237,51 +268,12 @@
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
-}
-
-
-
-/* Phần bình luận */
-.comment-section {
-  margin-top: 30px; /* Tăng khoảng cách với phần trên */
-  border-top: 1px solid #ddd;
-  padding-top: 15px; /* Tăng padding trên */
-  font-size: 1.1em; /* Tăng kích thước font chữ */
-}
-
-/* Mỗi phần bình luận */
-.comment-item {
-  margin-bottom: 25px; /* Tăng khoảng cách giữa các bình luận */
-  border-bottom: 1px dashed #ccc;
-  padding-bottom: 15px; /* Tăng padding dưới */
-  font-size: 1.2em; /* Tăng kích thước chữ cho nội dung */
-}
-
-/* Tên người dùng trong bình luận */
-.comment-user {
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px; /* Tăng khoảng cách dưới tên */
-  font-size: 1.3em; /* Tăng kích thước chữ cho tên người dùng */
-}
-
-/* Nội dung bình luận */
-.comment-content {
-  margin-bottom: 10px;
-  color: #555;
-  line-height: 1.8; /* Tăng chiều cao dòng để dễ đọc hơn */
-  font-size: 1.1em; /* Tăng kích thước font chữ */
-}
-
-/* Thời gian bình luận */
-.comment-time {
-  font-size: 1.2em; /* Tăng kích thước font chữ thời gian */
-  color: #888;
-  margin-top: 5px; /* Thêm khoảng cách trên để tránh bị sát với nội dung */
 }
