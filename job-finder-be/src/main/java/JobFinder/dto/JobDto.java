@@ -18,6 +18,7 @@ public class JobDto {
     @Size(min = 5, max = 20, message = "name company must be at least 5 characters")
     private String nameCompany;
     private String level;
+    private boolean deleted;
     private String employmentType;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

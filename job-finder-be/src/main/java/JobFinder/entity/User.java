@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table
 @Data
-@Where(clause = "is_deleted = false")
+@Where(clause = "deleted = false")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private String password;
     private Boolean isActive;
     @Column(nullable = false)
-    private boolean isDeleted;
+    private boolean deleted;
     private String email;
     private Integer age;
     private String avatarUrl;

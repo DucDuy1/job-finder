@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table
 @Data
-@Where(clause = "is_deleted = false")
+@Where(clause = "deleted = false")
 public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class Job {
     private String description;
     private String imageUrl;
     @Column(nullable = false)
-    private boolean isDeleted;
+    private boolean deleted;
     private Date applicationDeadline;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

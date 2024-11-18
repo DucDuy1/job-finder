@@ -9,7 +9,7 @@ import org.hibernate.annotations.Where;
 @Entity
 @Table
 @Data
-@Where(clause = "is_deleted = false")
+@Where(clause = "deleted = false")
 @Setter
 @Getter
 public class Apply {
@@ -18,7 +18,7 @@ public class Apply {
     private Long id;
     private String fileCV;
     @Column(nullable = false)
-    private boolean isDeleted;
+    private boolean deleted;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -24,6 +24,7 @@ public class UserDto {
     @NotEmpty(message = "password not empty")
     @Size(min = 8, max = 20, message = "password must be between 8 and 20 characters")
     private String password;
+    private boolean deleted;
     private String fullName;
     @Email(message = "Email invalid")
     @Min(message = "Email must be at least 3 characters",value = 3)

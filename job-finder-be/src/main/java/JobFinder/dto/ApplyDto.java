@@ -8,6 +8,7 @@ import lombok.Data;
 public class ApplyDto {
     private Long id;
     private String fileCV;
+    private boolean deleted;
     private User user;
     private Job job;
 }

@@ -62,10 +62,10 @@ public class ResponseHandlerException {
         return errorResponse;
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public BaseResponseDto handleGenericException(Exception ex, WebRequest request) {
-        return BaseResponseDto.builder().message(ex.getMessage())
-                .code(MessageResponse.Code.INTERNAL_SERVER_ERROR).build();
-    }
+//    @ExceptionHandler(Exception.class)
+//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+//    public BaseResponseDto handleGenericException(Exception ex, WebRequest request) {
+//        return BaseResponseDto.builder().message(ex.getMessage())
+//                .code(MessageResponse.Code.INTERNAL_SERVER_ERROR).build();
+//    }
 }
