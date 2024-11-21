@@ -2,9 +2,11 @@ package JobFinder.controller;
 
 import JobFinder.dto.ApplyDto;
 import JobFinder.dto.SearchDto;
+import JobFinder.dto.response.BaseResponseDto;
 import JobFinder.dto.response.ListResponseDto;
 import JobFinder.dto.response.MessageResponse;
 import JobFinder.dto.response.ResponseDto;
+import JobFinder.exception.SystemException;
 import JobFinder.service.ApplyService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -23,7 +25,7 @@ import java.security.Principal;
 public class ApplyController {
     final ApplyService applyService;
 
-    @PostMapping(value = "/create", consumes = {"multipart/form-data"})
+    @PostMapping(value = "/create")
     public ResponseDto<ApplyDto> create(@Valid @ModelAttribute ApplyDto applyDto,
                                         @RequestParam(name = "file") MultipartFile file,
                                         Principal principal) throws IOException {

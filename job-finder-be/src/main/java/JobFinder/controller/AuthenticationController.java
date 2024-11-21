@@ -11,13 +11,14 @@ import JobFinder.dto.response.ResponseDto;
 import JobFinder.service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RequestMapping("/api/auth")
 @RestController
@@ -27,7 +28,8 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(
-            @RequestBody RegisterRequest registerRequest, HttpServletResponse response) {
+            @Valid @RequestBody RegisterRequest registerRequest,
+            HttpServletResponse response) {
         RegisterResponse registerResponse = authenticationService.register(registerRequest, response);
         return ResponseEntity.status(HttpStatus.CREATED).body(registerResponse);
     }

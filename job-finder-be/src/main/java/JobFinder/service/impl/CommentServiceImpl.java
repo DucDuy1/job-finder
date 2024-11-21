@@ -93,6 +93,7 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("id not found"));
         comment.setDeleted(true);
+        commentRepository.save(comment);
     }
 
     @Override

@@ -11,7 +11,7 @@ const useJobUpdate = () => {
         employmentType: [],
         level: [],
         file: null,
-        applicationDeadline: new Date(), // Khởi tạo với giá trị hiện tại
+        applicationDeadline: '', // Sử dụng chuỗi để lưu giá trị
         description: '',
         location: '',
         role: ''
@@ -25,6 +25,7 @@ const useJobUpdate = () => {
     // Handle form changes
     const handleChange = (e) => {
         const { name, value, files, options } = e.target;
+
         setFormState((prev) => {
             if (name === 'tag' || name === 'employmentType' || name === 'level') {
                 const selectedOptions = Array.from(options)
@@ -34,7 +35,7 @@ const useJobUpdate = () => {
             } else if (name === 'file') {
                 return { ...prev, file: files ? files[0] : null };
             } else if (name === 'applicationDeadline') {
-                return { ...prev, applicationDeadline: new Date(value) }; // Chuyển đổi chuỗi thành Date
+                return { ...prev, applicationDeadline: value }; // Lưu dưới dạng chuỗi
             } else {
                 return { ...prev, [name]: value };
             }
@@ -44,21 +45,27 @@ const useJobUpdate = () => {
     // Submit form
     const updateJob = async () => {
         if (!formState.id) {
-            console.error('Job ID is required.');
+            setError('Job ID is required.');
             return;
         }
+
         setIsLoading(true);
         setError(null);
         setSuccess(false);
 
         const formData = new FormData();
         Object.keys(formState).forEach((key) => {
-            if (key === 'file' && formState.file) {
-                formData.append(key, formState.file);
-            } else if (Array.isArray(formState[key])) {
-                formData.append(key, JSON.stringify(formState[key]));
+            const value = formState[key];
+            if (key === 'file' && value) {
+                formData.append(key, value);
+            } else if (Array.isArray(value)) {
+                // Gửi mảng dưới dạng chuỗi phân cách bằng dấu phẩy
+                formData.append(key, value.join(','));
+            } else if (key === 'applicationDeadline') {
+                // Chuyển thành chuỗi ISO
+                formData.append(key, new Date(value).toISOString());
             } else {
-                formData.append(key, formState[key]);
+                formData.append(key, value);
             }
         });
 
@@ -72,7 +79,7 @@ const useJobUpdate = () => {
                 navigate('/member-create-listjob');
             }
         } catch (err) {
-            setError(err.message || 'Đã xảy ra lỗi.');
+            setError(err?.response?.data?.message || 'Đã xảy ra lỗi.');
         } finally {
             setIsLoading(false);
         }

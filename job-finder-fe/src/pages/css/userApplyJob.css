@@ -1,13 +1,3 @@
-/* Reset CSS và biến màu sắc */
-:root {
-    --primary-color: #007bff;
-    --secondary-color: #00796b;
-    --background-color: #ffffff;
-    --text-color: #333;
-    --border-color: #ddd;
-    --hover-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
 
 /* Container chính */
 .user-apply-job {

@@ -21,9 +21,7 @@ function MemberDashboard() {
                     >
                         <option value="">Select Option</option>
                         <option value="job">Job</option>
-                        <option value="user">User</option>
-                        <option value="comment">Comment</option>
-                        <option value="apply">Apply</option>
+                        <option value="user">Staticfis User</option>
                     </select>
                 </li>
                 {selectedOption === 'job' && (
@@ -50,39 +48,6 @@ function MemberDashboard() {
                         <li>
                             <Link to="/user-apply-stats" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
                                 staticfis User
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/user/search" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Search User
-                            </Link>
-                        </li>
-                    </>
-                )}
-                {selectedOption === 'comment' && (
-                    <>
-                        <li>
-                            <Link to="/comment/create" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Create Comment
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/comment/search" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Search Comment
-                            </Link>
-                        </li>
-                    </>
-                )}
-                {selectedOption === 'apply' && (
-                    <>
-                        <li>
-                            <Link to="/apply/create" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Create Apply
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/apply/search" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Search Apply
                             </Link>
                         </li>
                     </>

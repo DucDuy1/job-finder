@@ -14,7 +14,6 @@ const ChangePassword = () => {
   const handleChangePassword = async () => {
     try {
       await changePasswordAPI(email, otp, newPassword);
-      alert('Đổi mật khẩu thành công. Bạn sẽ được chuyển về trang đăng nhập.');
       navigate('/login'); // Redirect to login page
     } catch (error) {
       setError('OTP hoặc mật khẩu không đúng. Vui lòng thử lại.');

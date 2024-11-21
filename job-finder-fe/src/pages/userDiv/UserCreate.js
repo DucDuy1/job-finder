@@ -1,6 +1,8 @@
-import useUserCreate from '../../hooks/user/useUserCreate';
-import '../css/create.css'
+import '../css/create.css';
 import 'animate.css';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
+import useUserCreate from '../../hooks/user/useUserCreate';
 
 const UserCreate = () => {
     const {
@@ -8,23 +10,20 @@ const UserCreate = () => {
         isLoading,
         error,
         success,
-        fieldErrors,
-        isSubmitted,
         handleChange,
         handleSubmit,
     } = useUserCreate();
 
     return (
         <div className="create-container animate__animated animate__fadeIn">
+            <Link to="/" className="userDetail-home-link">
+                <FaHome size={24} className="userDetail-home-icon" />
+                <span className="userDetail-home-text">Home</span>
+            </Link>
             <h1 className="animate__animated animate__bounceIn">Create User</h1>
-            {error && (
-                <p className="error-message animate__animated animate__shakeX">
-                    {error}
-                </p>
-            )}
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>User name:</label>
+                    <label>Username:</label>
                     <input
                         type="text"
                         name="username"
@@ -33,9 +32,7 @@ const UserCreate = () => {
                         required
                         className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.username && (
-                        <p className="error-message">{fieldErrors.username}</p>
-                    )}
+                    {error?.username && <p className="error-message">{error.username}</p>}
                 </div>
                 <div>
                     <label>Password:</label>
@@ -47,12 +44,10 @@ const UserCreate = () => {
                         required
                         className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.password && (
-                        <p className="error-message">{fieldErrors.password}</p>
-                    )}
+                    {error?.password && <p className="error-message">{error.password}</p>}
                 </div>
                 <div>
-                    <label>Full name:</label>
+                    <label>Full Name:</label>
                     <input
                         type="text"
                         name="fullName"
@@ -61,9 +56,7 @@ const UserCreate = () => {
                         required
                         className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.fullName && (
-                        <p className="error-message">{fieldErrors.fullName}</p>
-                    )}
+                    {error?.fullName && <p className="error-message">{error.fullName}</p>}
                 </div>
                 <div>
                     <label>Email:</label>
@@ -75,9 +68,7 @@ const UserCreate = () => {
                         required
                         className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.email && (
-                        <p className="error-message">{fieldErrors.email}</p>
-                    )}
+                    {error?.email && <p className="error-message">{error.email}</p>}
                 </div>
                 <div>
                     <label>Age:</label>
@@ -89,46 +80,45 @@ const UserCreate = () => {
                         required
                         className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.age && (
-                        <p className="error-message">{fieldErrors.age}</p>
-                    )}
+                    {error?.age && <p className="error-message">{error.age}</p>}
                 </div>
-                <label>
-                    Role:
+                <div>
+                    <label>Role:</label>
                     <select
                         name="role"
                         value={formState.role}
                         onChange={handleChange}
+                        required
+                        className="animate__animated animate__fadeIn"
                     >
                         <option value="" disabled hidden>Select Role</option>
                         <option value="ADMIN">Admin</option>
                         <option value="USER">User</option>
-                        <option value="MEMBER">Manager</option>
+                        <option value="MEMBER">Member</option>
                     </select>
-                </label>
+                    {error?.role && <p className="error-message">{error.role}</p>}
+                </div>
                 <div>
                     <label>Avatar:</label>
                     <input
                         type="file"
                         name="file"
                         onChange={handleChange}
-                        className="animate__animated animate__fadeIn"
                         accept="image/*"
+                        className="animate__animated animate__fadeIn"
                     />
-                    {isSubmitted && fieldErrors.file && (
-                        <p className="error-message">{fieldErrors.file}</p>
-                    )}
+                    {error?.file && <p className="error-message">{error.file}</p>}
                 </div>
                 <button
                     type="submit"
                     className="animate__animated animate__pulse"
                     disabled={isLoading}
                 >
-                    {isLoading ? "Creating..." : "Create User"}
+                    {isLoading ? "Creating..." : "Create"}
                 </button>
                 {success && (
                     <p className="success-message animate__animated animate__fadeIn">
-                        User created successfully!
+                        Created successfully!
                     </p>
                 )}
             </form>

@@ -5,7 +5,7 @@ import { commentDeleteAPI, commentSearchAPI } from '../../service/commentService
 const useCommentSearch = () => {
   const [search, setSearch] = useState({
     keyWord: "%%",
-    size: 2,
+    size: 10,
     page: 0,
   });
   const [comments, setComments] = useState([]);

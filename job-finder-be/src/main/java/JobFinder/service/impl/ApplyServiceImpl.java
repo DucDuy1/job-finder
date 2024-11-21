@@ -45,7 +45,7 @@ public class ApplyServiceImpl implements ApplyService {
         Job job = jobRepository.findById(applyDto.getJob().getId())
                 .orElseThrow(() -> new SystemException(new BaseResponseDto(MessageResponse.Message.NOT_FOUND,
                         MessageResponse.Code.NOT_FOUND)));
-        if (file != null && !file.isEmpty()) {
+        if (file != null && !file.isEmpty()) {   //size file must not = 0
             String fileName = fileService.uploadFile(file);
             applyDto.setFileCV(fileName);
         }
@@ -90,9 +90,10 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public void delete(Long id) {
-       Apply apply = applyRepository.findById(id)
-               .orElseThrow(() -> new RuntimeException("id not found"));
-       apply.setDeleted(true);
+        Apply apply = applyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("id not found"));
+        apply.setDeleted(true);
+        applyRepository.save(apply);
     }
 
     @Override

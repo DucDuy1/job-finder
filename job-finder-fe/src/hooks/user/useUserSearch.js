@@ -6,7 +6,7 @@ const useUserSearch = () => {
   const [avatarUrlMap, setAvatarUrlMap] = useState({});
   const [search, setSearch] = useState({
     keyWord: "%%",
-    size: 2,
+    size: 10,
     page: 0,
   });
   const [users, setUsers] = useState([]);
@@ -62,6 +62,7 @@ const useUserSearch = () => {
     try {
       await userDeleteAPI(id);
       find();
+      console.log("Deleting user with ID:", id);
       navigate('/user/search');
     } catch (error) {
       console.error("Delete error:", error);

@@ -471,3 +471,29 @@ input:-webkit-autofill:focus {
     padding: 8px 12px;
   }
 }
+
+.auth-input-container {
+  position: relative; /* Bao quanh input */
+}
+
+.auth-input {
+  width: 100%;
+  padding-right: 50px; /* Tạo khoảng cách để không bị che bởi icon */
+  box-sizing: border-box;
+}
+
+.auth-password-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 1.5rem; /* Kích thước icon lớn hơn */
+  transition: color 0.3s ease;
+}
+
+.auth-password-icon:hover {
+  color: #333; /* Đổi màu khi hover */
+}
+

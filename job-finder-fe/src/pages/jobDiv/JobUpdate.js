@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useJobUpdate from '../../hooks/job/useJobUpdate';
 import '../css/update.css';
+import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 
 const JobUpdate = () => {
     const { id } = useParams(); // Lấy id từ URL
@@ -26,6 +29,10 @@ const JobUpdate = () => {
 
     return (
         <div className="update-container">
+            <Link to="/" className="userDetail-home-link">
+                <FaHome size={24} className="userDetail-home-icon" />
+                <span className="userDetail-home-text">Home</span>
+            </Link>
             <h1>Update Job</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -65,7 +72,7 @@ const JobUpdate = () => {
                     type="date"
                     id="applicationDeadline"
                     name="applicationDeadline"
-                    value={formState.applicationDeadline}
+                    value={formState.applicationDeadline ? format(new Date(formState.applicationDeadline), 'yyyy-MM-dd') : ''}
                     onChange={handleChange}
                     required
                 />

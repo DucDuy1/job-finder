@@ -8,6 +8,9 @@ import JobFinder.dto.authDto.ChangePasswordDto;
 import JobFinder.dto.authDto.ForgotPasswordDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 public interface AuthenticationService {
     RegisterResponse register(RegisterRequest request, HttpServletResponse response);

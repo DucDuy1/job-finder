@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found!"));
         user.setDeleted(true);
+        userRepository.save(user);
     }
 
     @Override

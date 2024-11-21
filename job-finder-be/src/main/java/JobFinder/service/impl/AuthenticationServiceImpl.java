@@ -15,6 +15,7 @@ import JobFinder.enumerated.Role;
 import JobFinder.repository.OtpRepository;
 import JobFinder.repository.UserRepository;
 import JobFinder.service.AuthenticationService;
+import JobFinder.service.FileService;
 import JobFinder.service.JwtService;
 import JobFinder.service.MailService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -42,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final BeanConfig modelMapper;
     private final MailService mailServiceImpl;
-
+    final FileService fileService;
     @Override
     public RegisterResponse register(RegisterRequest request, HttpServletResponse response) {
         User newUser = new User();
@@ -50,6 +53,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
         newUser.setEmail(request.getEmail());
         newUser.setRole(Role.USER);
+        newUser.setAvatarUrl("/defaul.jpg");
         User createdUser = userRepository.save(newUser);
         // Generate the JWT token
         String jwtToken = jwtService.generateToken(createdUser);

@@ -49,6 +49,7 @@ const App = () => {
           <Route path="/comment/search" element={<CommentSearch />} />
           <Route path="/comment/update/:id" element={<CommentUpdate />} />
           <Route path="/apply/create/:id" element={<ApplyCreate />} />
+          <Route path="/apply/create" element={<ApplyCreate />} />
           <Route path="/apply/search" element={<ApplySearch />} />
           <Route path="/apply/update/:id" element={<ApplyUpdate />} />
           <Route path="/user-dashbroad/:id" element={<UserDashboard/>} />

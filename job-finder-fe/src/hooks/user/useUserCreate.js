@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
+import { userValidationSchema, validateField } from "../../utils/validations/userValidation"; // Import schema validation
+import { userCreateAPI } from "../../service/userService";
 import { useNavigate } from "react-router-dom";
-import { userCreateAPI } from '../../service/userService';
-import { validateField, userValidationSchema } from '../../utils/validations/userValidation';
 
 const useUserCreate = () => {
     const [formState, setFormState] = useState({
@@ -17,11 +17,9 @@ const useUserCreate = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
-    const [fieldErrors, setFieldErrors] = useState({}); // Track errors for each field
-    const [isSubmitted, setIsSubmitted] = useState(false); // To handle displaying validation errors after submit
+    const [isSubmitted, setIsSubmitted] = useState(false);
     const navigate = useNavigate();
 
-    // Hàm cập nhật state của form
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         setFormState((prev) => ({
@@ -30,47 +28,41 @@ const useUserCreate = () => {
         }));
     };
 
-    // Hàm kiểm tra lỗi từng trường
-    const validateForm = async () => {
-        const errors = {};
-        for (const field in formState) {
-            const error = await validateField(field, formState[field]);
-            if (error) errors[field] = error;
-        }
-        return errors;
-    };
-
-    // Hàm gửi form
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitted(true); // Enable error display after form submission
-
-        const errors = await validateForm(); // Validate all fields
-
-        if (Object.keys(errors).length > 0) {
-            setFieldErrors(errors); // Set validation errors if there are any
-            return; // Don't submit the form if there are errors
-        }
-
-        const formData = new FormData();
-        formData.append("username", formState.username);
-        formData.append("password", formState.password);
-        formData.append("fullName", formState.fullName);
-        formData.append("email", formState.email);
-        formData.append("age", formState.age);
-        formData.append("role", formState.role);
-        if (formState.file) formData.append("file", formState.file);
+        setIsSubmitted(true);
 
         try {
+            // Validate toàn bộ formState bằng schema
+            await userValidationSchema.validate(formState, { abortEarly: false });
+
+            const formData = new FormData();
+            for (let key in formState) {
+                formData.append(key, formState[key]);
+            }
+
             setIsLoading(true);
             setError(null);
             await userCreateAPI(formData);
             setSuccess(true);
-            setFormState({ username: "", password: "", fullName: "", email: "", age: "", role: "", file: null });
-            setFieldErrors({}); // Clear any previous validation errors
+            setFormState({
+                username: "",
+                password: "",
+                fullName: "",
+                email: "",
+                age: "",
+                role: "",
+                file: null,
+            });
+            setIsSubmitted(false);
             navigate("/user/search");
         } catch (err) {
-            setError(err.message || "Đã xảy ra lỗi.");
+            setError(
+                err.inner.reduce((acc, validationError) => {
+                    acc[validationError.path] = validationError.message;
+                    return acc;
+                }, {})
+            );
         } finally {
             setIsLoading(false);
         }
@@ -79,12 +71,11 @@ const useUserCreate = () => {
     return {
         formState,
         isLoading,
-        error,
+        error: isSubmitted ? error : null, // Hiển thị lỗi sau khi nhấn submit
         success,
-        fieldErrors,
-        isSubmitted,
         handleChange,
         handleSubmit,
+        setFormState,
     };
 };
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/userApplyJob.css';
 import { userGetImageAPI } from '../../service/userService';
-import { FaHome } from 'react-icons/fa';
 import { jobGetUserIdAPI } from '../../service/jobService';
 import { applyGetJobIdAPI, applyDownloadAPI } from '../../service/applyService';
 
@@ -146,7 +145,6 @@ const MemberApplicantList  = () => {
             <h1 className="user-apply-job-h1">List of Created Jobs</h1>
             <div className="jobDetail-navbar">
                 <Link to="/" className="jobDetail-home-link">
-                    <FaHome size={24} className="jobDetail-home-icon" />
                     <span className="jobDetail-home-text">Home</span>
                 </Link>
             </div>
@@ -163,7 +161,7 @@ const MemberApplicantList  = () => {
                                     />
                                 )}
                                 
-                                <h1 className="user-apply-job-title">{job.name || 'No title available'}</h1>
+                                <h1 className="user-apply-job-title">{job.title || 'No title available'}</h1>
                             </div>
                             <Link to={`/jobDetail/${job.id}`} className="job-link">
                                     <p className="textP">Click to see description</p>

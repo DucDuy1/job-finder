@@ -1,5 +1,7 @@
 import '../css/create.css'
 import 'animate.css';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import useJobCreate from '../../hooks/job/useJobCreate';
 
 const JobCreate = () => {
@@ -14,6 +16,10 @@ const JobCreate = () => {
 
     return (
         <div className="create-container animate__animated animate__fadeIn">
+               <Link to="/" className="userDetail-home-link">
+                    <FaHome size={24} className="userDetail-home-icon" />
+                    <span className="userDetail-home-text">Home</span>
+                </Link>
             <h1 className="animate__animated animate__bounceIn">Create Job</h1>
             <form onSubmit={handleSubmit}>
                 <div>

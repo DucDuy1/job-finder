@@ -63,11 +63,6 @@ function AdminDashboard() {
                 {selectedOption === 'comment' && (
                     <>
                         <li>
-                            <Link to="/comment/create" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Create Comment
-                            </Link>
-                        </li>
-                        <li>
                             <Link to="/comment/search" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
                                 Search Comment
                             </Link>
@@ -76,11 +71,6 @@ function AdminDashboard() {
                 )}
                  {selectedOption === 'apply' && (
                     <>
-                        <li>
-                            <Link to="/apply/create" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
-                                Create Apply
-                            </Link>
-                        </li>
                         <li>
                             <Link to="/apply/search" className="adminDashboard-list-group-item adminDashboard-list-group-item-action adminDashboard-list-group-item-primary">
                                 Search Apply

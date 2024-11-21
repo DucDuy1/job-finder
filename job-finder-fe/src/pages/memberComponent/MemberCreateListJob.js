@@ -1,67 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../css/jobUserApply.css';
-import { userGetImageAPI } from '../../service/userService';
 import { FaHome } from 'react-icons/fa';
-import { jobGetUserIdAPI } from '../../service/jobService';
+import '../css/jobUserApply.css';
+import useMemberCreatedJobs from '../../hooks/member/useMemberCreatedJobs';
 
 const MemberCreateListJob = () => {
     const userId = localStorage.getItem('id');
-    const [createdJobs, setCreatedJobs] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { createdJobs, loading, error, jobImages, totalPages, handleDelete, PAGE_SIZE } = useMemberCreatedJobs(userId);
+
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const PAGE_SIZE = 10;
-    const [jobImages, setJobImages] = useState({});
-
-    const fetchImageUrl = async (imageUrl) => {
-        try {
-            const imageBlob = await userGetImageAPI(imageUrl);
-            return URL.createObjectURL(imageBlob);
-        } catch (err) {
-            console.error('Failed to load image:', err);
-            return '';
-        }
-    };
-
-    useEffect(() => {
-        const fetchCreatedJobs = async () => {
-            try {
-                const response = await jobGetUserIdAPI(userId);
-                const jobs = response.listItems || [];
-                setCreatedJobs(jobs);
-                setTotalPages(Math.ceil(jobs.length / PAGE_SIZE));
-
-                const imagePromises = jobs.map(async (job) => {
-                    if (job.imageUrl) {
-                        const imageUrl = await fetchImageUrl(job.imageUrl);
-                        return { id: job.id, imageUrl };
-                    }
-                    return { id: job.id, imageUrl: '' };
-                });
-
-                const images = await Promise.all(imagePromises);
-                const imageMap = images.reduce((acc, { id, imageUrl }) => {
-                    acc[id] = imageUrl;
-                    return acc;
-                }, {});
-
-                setJobImages(imageMap);
-            } catch (err) {
-                setError(err.message || 'Failed to load created jobs');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        if (userId) {
-            fetchCreatedJobs();
-        } else {
-            setLoading(false);
-            setError('User ID not found');
-        }
-    }, [userId]);
 
     const handlePageChange = (direction) => {
         setCurrentPage((prev) => Math.min(Math.max(prev + direction, 1), totalPages));
@@ -86,8 +33,7 @@ const MemberCreateListJob = () => {
             <div className="job-user-apply-container">
                 {currentJobs.length > 0 ? (
                     currentJobs.map((job) => (
-
-                        <div className="job-user-apply-details">
+                        <div key={job.id} className="job-user-apply-details">
                             {jobImages[job.id] && (
                                 <img
                                     src={jobImages[job.id]}
@@ -95,8 +41,7 @@ const MemberCreateListJob = () => {
                                     className="job-user-apply-logo"
                                 />
                             )}
-
-                            <h1 className="job-user-apply-title">{job.name || 'No title available'}</h1>
+                            <h1 className="job-user-apply-title">{job.nameCompany || 'No company available'}</h1>
                             <hr />
                             <div className="job-user-apply-item">
                                 <strong>Title:</strong>
@@ -130,28 +75,31 @@ const MemberCreateListJob = () => {
                                 <strong>Description:</strong>
                                 <p>{job.description || 'No description available'}</p>
                                 <Link to={`/jobDetail/${job.id}`} key={job.id} className="job-user-apply-details-link">
-                                Click to go description
-                            </Link>
-                        </div>
+                                    Click to go description
+                                </Link>
+
                             </div>
-
-            ))
-            ) : (
-            <p className="job-user-apply-no-jobs">No jobs created yet.</p>
+                            <hr />
+                                <Link className="job-user-apply-button" to={`/job/update/${job.id}`}>Update</Link>
+                            <button className="job-user-apply-button" onClick={() => handleDelete(job.id)}>Delete</button>
+                        </div>
+                    ))
+                ) : (
+                    <p className="job-user-apply-no-jobs">No jobs created yet.</p>
                 )}
-        </div>
+            </div>
 
-            {/* Pagination */ }
-    <div className="pagination">
-        <button onClick={() => handlePageChange(-1)} disabled={currentPage === 1}>
-            Previous
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => handlePageChange(1)} disabled={currentPage === totalPages}>
-            Next
-        </button>
-    </div>
-        </div >
+            {/* Pagination */}
+            <div className="pagination">
+                <button onClick={() => handlePageChange(-1)} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>Page {currentPage} of {totalPages}</span>
+                <button onClick={() => handlePageChange(1)} disabled={currentPage === totalPages}>
+                    Next
+                </button>
+            </div>
+        </div>
     );
 };
 

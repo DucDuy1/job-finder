@@ -1,9 +1,6 @@
 package JobFinder.jwt.Payload;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,15 +8,14 @@ import lombok.Data;
 @Builder
 public class RegisterRequest {
     @NotEmpty(message = "user name not empty")
-    @Min(message = "user name must be at least 8 characters",value = 8)
-    @Max(message = "user name max is 12 characters",value = 12)
+    @Size(min = 8, max = 20, message = "username must be between 8 and 20 characters")
     private String username;
     @NotEmpty(message = "password not empty")
-    @Min(message = "password must be at least 8 characters",value = 8)
-    @Max(message = "password max is 12 characters",value = 12)
+    @Size(min = 8, max = 20, message = "password must be between 8 and 20 characters")
     private String password;
     @Email(message = "Email invalid")
     @NotEmpty(message = "email not empty")
-    @Min(message = "email must be at least 5 characters",value = 5)
+    @Size(min = 8, max = 20, message = "email must be between 5 and 20 characters")
     private String email;
+    private String avatarUrl;
 }

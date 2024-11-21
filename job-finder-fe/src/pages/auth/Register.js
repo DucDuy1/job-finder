@@ -1,4 +1,6 @@
-import useRegister from '../../hooks/auth/useRegister'; // Correct hook for registration
+import { useState } from 'react';
+import useRegister from '../../hooks/auth/useRegister';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import icon
 import '../css/auth.css';
 import 'animate.css';
 
@@ -15,6 +17,8 @@ const Register = () => {
         handleRegister,
     } = useRegister();
 
+    const [showPassword, setShowPassword] = useState(false); // Trạng thái ẩn/hiện mật khẩu
+
     return (
         <div className="auth">
             <div className="auth-background-shapes">
@@ -28,7 +32,7 @@ const Register = () => {
                 <h2 className="animate__animated animate__bounceInDown auth-title">Register</h2>
                 {success && <p className="auth-success-message">Registration successful!</p>}
                 {error && error.form && <p className="auth-error-message">{error.form}</p>}
-                
+
                 <form onSubmit={handleRegister}>
                     <div className="auth-form-group">
                         <label htmlFor="username" className="auth-label">Username:</label>
@@ -45,15 +49,23 @@ const Register = () => {
                     </div>
                     <div className="auth-form-group">
                         <label htmlFor="password" className="auth-label">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            placeholder="Enter password"
-                            className={`auth-input animate__animated animate__fadeInRight ${error.password ? 'auth-input-error' : ''}`}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
+                        <div className="auth-input-container">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                placeholder="Enter password"
+                                className={`auth-input animate__animated animate__fadeInRight ${error.password ? 'auth-input-error' : ''}`}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <span
+                                className="auth-password-icon"
+                                onClick={() => setShowPassword(!showPassword)} // Toggle trạng thái
+                            >
+                                {showPassword ? <FaEyeSlash size={24} /> : <FaEye size={24} />}
+                            </span>
+                        </div>
                         {error.password && <p className="auth-error-message animate__animated animate__shakeX">{error.password}</p>}
                     </div>
                     <div className="auth-form-group">

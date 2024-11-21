@@ -1,6 +1,7 @@
 import React from 'react';
 import "../css/search.css";
 import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import useApplySearch from '../../hooks/apply/useApplySearch';
 
 const ApplySearch = () => {
@@ -23,6 +24,9 @@ const ApplySearch = () => {
 
   return (
     <div className="search-body">
+      <Link to="/">
+        <FaHome size={60} className="userDetail-home-icon" />
+      </Link>
       <h2 className="search-h2">Search</h2>
       <div>
         <input

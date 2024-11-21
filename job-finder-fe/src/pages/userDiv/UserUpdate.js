@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import useUserUpdate from '../../hooks/user/useUserUpdate';
 import '../css/update.css';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 
 const UserUpdate = () => {
     const { id } = useParams(); // Lấy id từ URL
@@ -26,10 +28,13 @@ const UserUpdate = () => {
 
     return (
         <div className="update-container">
-            <h1>Cập nhật User</h1>
+            <Link to="/">
+                <FaHome size={60} className="userDetail-home-icon" />
+            </Link>
+            <h1>Update User</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="fullName">Tên đầy đủ:</label>
+                    <label htmlFor="fullName">Full name:</label>
                     <input
                         type="text"
                         id="fullName"
@@ -51,7 +56,7 @@ const UserUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="age">Tuổi:</label>
+                    <label htmlFor="age">Age:</label>
                     <input
                         type="number"
                         id="age"
@@ -62,7 +67,7 @@ const UserUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="role">Vai trò:</label>
+                    <label htmlFor="role">Role:</label>
                     <select
                         id="role"
                         name="role"
@@ -70,14 +75,14 @@ const UserUpdate = () => {
                         onChange={handleChange}
                         required
                     >
-                        <option value="" disabled hidden>Chọn vai trò</option>
+                        <option value="" disabled hidden>Select role</option>
                         <option value="ADMIN">Admin</option>
                         <option value="USER">User</option>
-                        <option value="MANAGER">Manager</option>
+                        <option value="MEMBER">Member</option>
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="file">Tệp đính kèm:</label>
+                    <label htmlFor="file">Update avatar:</label>
                     <input
                         type="file"
                         id="file"
@@ -90,8 +95,8 @@ const UserUpdate = () => {
                     {isLoading ? 'Đang cập nhật...' : 'Cập nhật'}
                 </button>
             </form>
-            {error && <p className="error-message">Có lỗi xảy ra: {error}</p>}
-            {success && <p style={{ color: 'green' }}>User đã được cập nhật thành công!</p>}
+            {error && <p className="error-message">Error: {error}</p>}
+            {success && <p style={{ color: 'green' }}>User uppdate success!</p>}
         </div>
     );
 };

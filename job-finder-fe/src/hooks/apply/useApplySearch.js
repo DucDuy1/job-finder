@@ -6,7 +6,7 @@ const useApplySearch = () => {
   const [fileCVUrlMap, setFileCVUrlMap] = useState({});
   const [search, setSearch] = useState({
     keyWord: "%%",
-    size: 2,
+    size: 10,
     page: 0,
   });
   const [applys, setApplys] = useState([]);

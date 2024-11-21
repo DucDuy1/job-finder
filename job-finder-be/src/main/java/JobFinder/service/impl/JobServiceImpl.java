@@ -99,6 +99,7 @@ public class JobServiceImpl implements JobService {
         Job job = jobRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("id not found"));
         job.setDeleted(true);
+        jobRepository.save(job);
     }
 
     @Override

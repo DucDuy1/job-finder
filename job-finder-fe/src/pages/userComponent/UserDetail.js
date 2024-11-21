@@ -3,15 +3,19 @@ import { useParams, Link } from 'react-router-dom';
 import useUserUpdate from '../../hooks/user/useUserUpdate';
 import { userGetIdAPI, userGetImageAPI } from '../../service/userService';
 import { FaHome } from 'react-icons/fa';
+import { Visibility, VisibilityOff } from '@mui/icons-material'; // Icon for toggle
 import EditIcon from '@mui/icons-material/Edit';
 import '../css/userDetail.css';
 
 const UserDetail = () => {
     const { id } = useParams();
-    const { formState, handleChange, updateUser, isLoading, error, success } = useUserUpdate();
+    const { formState, handleChange, updateUser, isLoading, success } = useUserUpdate();
     const [avatarUrl, setAvatarUrl] = useState('');
     const [isEditing, setIsEditing] = useState(null);
     const [isAvatarChanged, setIsAvatarChanged] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [error, setError] = useState(null);
 
     const fetchUserData = useCallback(async () => {
         try {
@@ -66,26 +70,30 @@ const UserDetail = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (formState.oldPassword && !formState.newPassword) {
+        if (formState.oldPassword && !formState.password) {
             alert('Please enter a new password if you want to change the old one.');
             return;
         }
-        if (formState.newPassword && !formState.oldPassword) {
+        if (formState.password && !formState.oldPassword) {
             alert('Please provide the old password to confirm changes.');
             return;
         }
         try {
             await updateUser();
-
             if (success) {
+                setError(null); // Reset error state
                 fetchUserData();
                 setIsEditing(null);
                 setIsAvatarChanged(false);
             }
+            
         } catch (err) {
             console.error('Error during update:', err);
         }
     };
+
+    const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+    const toggleNewPasswordVisibility = () => setShowNewPassword((prev) => !prev);
 
     return (
         <div className="userDetail-container">
@@ -187,14 +195,20 @@ const UserDetail = () => {
                         {isEditing === 'password' ? 'Old Password:' : 'Change Password:'}
                     </label>
                     {isEditing === 'password' ? (
-                        <div className="userDetail-value">
+                        <div className="userDetail-value userDetail-password-container">
                             <input
-                                type="password"
+                                type={showPassword ? 'text' : 'password'}
                                 name="oldPassword"
                                 value={formState.oldPassword || ''}
                                 onChange={handleChange}
                                 className="userDetail-input"
                             />
+                            <span
+                                className="userDetail-toggle-password"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                            </span>
                         </div>
                     ) : (
                         <div className="userDetail-value">
@@ -207,14 +221,20 @@ const UserDetail = () => {
                 {isEditing === 'password' && (
                     <div className="userDetail-row">
                         <label className="userDetail-label">New Password:</label>
-                        <div className="userDetail-value">
+                        <div className="userDetail-value userDetail-password-container">
                             <input
-                                type="password"
-                                name="newPassword"
-                                value={formState.newPassword || ''}
+                                type={showNewPassword ? 'text' : 'password'}
+                                name="password"
+                                value={formState.password || ''}
                                 onChange={handleChange}
                                 className="userDetail-input"
                             />
+                            <span
+                                className="userDetail-toggle-password"
+                                onClick={toggleNewPasswordVisibility}
+                            >
+                                {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                            </span>
                         </div>
                     </div>
                 )}
@@ -237,10 +257,10 @@ const UserDetail = () => {
                         </button>
                     </div>
                 )}
-            </form>
 
-            {error && <p className="error-message">Error: {error}</p>}
-            {success && <p className="success-message">User updated successfully!</p>}
+                {error && <p className="userDetail-error">{error}</p>}
+                {success && <p className="userDetail-success">{success}</p>}
+            </form>
         </div>
     );
 };

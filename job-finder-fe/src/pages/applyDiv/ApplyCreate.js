@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import '../css/create.css'
 import 'animate.css';
 import useApplyCreate from '../../hooks/apply/useApplyCreate';
@@ -29,6 +30,10 @@ const ApplyCreate = () => {
     console.log(jobId);
     return (
         <div className="create-container animate__animated animate__fadeIn">
+               <Link to="/" className="userDetail-home-link">
+                    <FaHome size={24} className="userDetail-home-icon" />
+                    <span className="userDetail-home-text">Home</span>
+                </Link>
             <h1 className="animate__animated animate__bounceIn">Apply</h1>
             {error && (
                 <p className="error-message animate__animated animate__shakeX">
@@ -41,7 +46,7 @@ const ApplyCreate = () => {
                     <input
                         type="file"
                         name="file"
-                        accept=".pdf,.doc,.docx,.txt"
+                        accept=".pdf"
                         onChange={handleChange}
                         className="animate__animated animate__fadeIn"
                     />

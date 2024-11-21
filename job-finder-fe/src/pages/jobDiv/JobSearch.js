@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../css/search.css";
 import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import useJobSearch from '../../hooks/job/useJobSearch';
 
 const JobSearch = () => {
@@ -36,6 +37,9 @@ const JobSearch = () => {
 
   return (
     <div className="search-body">
+      <Link to="/">
+        <FaHome size={60} className="userDetail-home-icon" />
+      </Link>
       <h2 className="search-h2">Search</h2>
 
       {/* Separate Search Inputs */}
@@ -56,11 +60,11 @@ const JobSearch = () => {
             <th>Id</th>
             <th>Title</th>
             <th>Company</th>
+            <th>Description</th>
             <th>Language</th>
             <th>Level</th>
             <th>Employment type</th>
             <th>Location</th>
-            <th>Description</th>
             <th>Application Deadline</th>
             <th>Image</th>
             <th>User</th>
@@ -73,10 +77,6 @@ const JobSearch = () => {
               <td>{id}</td>
               <td>{title}</td>
               <td>{nameCompany}</td>
-              <td>{tag}</td>
-              <td>{level}</td>
-              <td>{employmentType}</td>
-              <td>{location}</td>
               <td>
                 {expandedDescriptions[id] ? description || "" : truncateText(description || "", 50)}
                 {(description && description.length > 50) && (
@@ -85,6 +85,11 @@ const JobSearch = () => {
                   </button>
                 )}
               </td>
+              <td>{tag}</td>
+              <td>{level}</td>
+              <td>{employmentType}</td>
+              <td>{location}</td>
+
               <td>{applicationDeadline}</td>
               <td>
                 {imageUrl ? (

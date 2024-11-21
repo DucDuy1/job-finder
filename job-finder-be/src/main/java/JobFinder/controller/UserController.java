@@ -25,7 +25,7 @@ public class UserController {
 
     final UserService userService;
 
-    @PostMapping(value = "/create", consumes = {"multipart/form-data"})
+    @PostMapping(value = "/create")
     public ResponseDto<UserDto> create(@Valid @ModelAttribute UserDto userDto,
                                        @RequestParam(name = "file") MultipartFile file,
                                        Principal principal) throws IOException {
@@ -57,7 +57,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     public ResponseDto<UserDto> delete(@PathVariable(value = "id") Long id) {
         ResponseDto<UserDto> responseDto = new ResponseDto<>();
         responseDto.setMessage(MessageResponse.Message.SUCCESS);
@@ -72,7 +72,7 @@ public class UserController {
     }
 
     @PostMapping("/list-user")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_MEMBER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MEMBER')")
     public ListResponseDto<UserDto> listUser(Pageable pageable, @RequestParam(defaultValue = "0") int page,
                                              @RequestParam(defaultValue = "10") int size) {
         pageable = PageRequest.of(page, size);
