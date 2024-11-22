@@ -183,3 +183,15 @@ body {
         margin-bottom: 10px;
     }
 }
+
+.no-results {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: #0a5f8f; /* Xanh đậm */
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  
+  

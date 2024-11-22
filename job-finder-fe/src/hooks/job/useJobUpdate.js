@@ -79,7 +79,7 @@ const useJobUpdate = () => {
                 navigate('/member-create-listjob');
             }
         } catch (err) {
-            setError(err?.response?.data?.message || 'Đã xảy ra lỗi.');
+            setError(err?.response?.data?.message || 'error');
         } finally {
             setIsLoading(false);
         }

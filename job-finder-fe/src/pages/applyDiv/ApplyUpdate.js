@@ -3,13 +3,12 @@ import { useParams } from 'react-router-dom';
 import '../css/update.css'
 import useApplyUpdate from '../../hooks/apply/useApplyUpdate';
 
-
 const ApplyUpdate = () => {
     const { id } = useParams(); // Lấy ID từ URL
     const {
-        formState,        
-        handleChange,      
-        updateApply,  
+        formState,
+        handleChange,
+        updateApply,
         isLoading,
         error,
         success,
@@ -29,7 +28,7 @@ const ApplyUpdate = () => {
             <h1>Cập nhật Apply</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="user.username">Người dùng:</label>
+                    <label htmlFor="user.username">Username:</label>
                     <input
                         type="text"
                         id="user.username"
@@ -40,7 +39,7 @@ const ApplyUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="job.id">Công việc:</label>
+                    <label htmlFor="job.id">Id job:</label>
                     <input
                         type="text"
                         id="job.id"
@@ -51,7 +50,7 @@ const ApplyUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="file">Tệp đính kèm:</label>
+                    <label htmlFor="file">File cv:</label>
                     <input
                         type="file"
                         id="file"
@@ -63,8 +62,8 @@ const ApplyUpdate = () => {
                     {isLoading ? 'Đang cập nhật...' : 'Cập nhật'}
                 </button>
             </form>
-            {error && <p className="error-message">Có lỗi xảy ra: {error}</p>}
-            {success && <p style={{ color: 'green' }}>Apply đã được cập nhật thành công!</p>}
+            {error && <p className="error-message">Error: {error}</p>}
+            {success && <p style={{ color: 'green' }}>Apply update success!</p>}
         </div>
     );
 };

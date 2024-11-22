@@ -25,10 +25,10 @@ const CommentUpdate = () => {
 
     return (
         <div className="update-container">
-            <h1>Cập nhật Comment</h1>
+            <h1>Update Comment</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="content">Nội dung:</label>
+                    <label htmlFor="content">Content:</label>
                     <input
                         type="text"
                         id="content"
@@ -39,7 +39,7 @@ const CommentUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="user.username">Người dùng:</label>
+                    <label htmlFor="user.username">Username:</label>
                     <input
                         type="text"
                         id="user.username"
@@ -50,7 +50,7 @@ const CommentUpdate = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="job.id">Công việc:</label>
+                    <label htmlFor="job.id">Id job:</label>
                     <input
                         type="text"
                         id="job.id"
@@ -61,11 +61,11 @@ const CommentUpdate = () => {
                     />
                 </div>
                 <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Đang cập nhật...' : 'Cập nhật'}
+                    {isLoading ? 'Loading...' : success ? 'Updated!' : 'Update'}
                 </button>
             </form>
-            {error && <p className="error-message">Có lỗi xảy ra: {error}</p>}
-            {success && <p style={{ color: 'green' }}>Comment đã được cập nhật thành công!</p>}
+            {error && <p className="error-message">error: {error}</p>}
+            {success && <p style={{ color: 'green' }}>Comment update success!</p>}
         </div>
     );
 };

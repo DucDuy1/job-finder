@@ -24,7 +24,7 @@ const UserApplyStats = ({ jobId }) => {
                 const data = await statisticsUserAPI(formData);
                 setJobStatistics(data); // Giả định API trả về danh sách job với jobId và countUserApply
             } catch (err) {
-                setError("Không thể tải thống kê.");
+                setError("can't load statistics.");
             } finally {
                 setLoading(false);
             }
@@ -33,7 +33,7 @@ const UserApplyStats = ({ jobId }) => {
         fetchStatistics();
     }, []);
 
-    if (loading) return <p>Đang tải thống kê...</p>;
+    if (loading) return <p>Loading statistic...</p>;
     if (error) return <p>{error}</p>;
 
     return (
@@ -44,17 +44,16 @@ const UserApplyStats = ({ jobId }) => {
                     <span className="jobDetail-home-text">Home</span>
                 </Link>
             </div>
-        <h3 class="userApplyStats-title">Thống kê công việc của bạn</h3>
+        <h3 class="userApplyStats-title">Statistics work</h3>
         {jobStatistics.length > 0 ? (
             jobStatistics.map((job) => (
                 <div key={job.jobId} class="userApplyStats-jobItem">
-                    <p class="userApplyStats-jobId">ID Công việc: {job.jobId}</p>
-                    <p class="userApplyStats-jobId">Title Công việc: {job.title}</p>
-                    <p class="userApplyStats-applicantCount">Số lượng người đã nộp CV: {job.countUserApply}</p>
+                    <p class="userApplyStats-jobId">Title job: {job.title}</p>
+                    <p class="userApplyStats-applicantCount">Number CV apply: {job.countUserApply}</p>
                 </div>
             ))
         ) : (
-            <p class="userApplyStats-noJobs">Không có công việc nào.</p>
+            <p class="userApplyStats-noJobs">No result</p>
         )}
     </div>
     );

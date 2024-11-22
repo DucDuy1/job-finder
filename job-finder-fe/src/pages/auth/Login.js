@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../css/auth.css';
 import 'animate.css';
 import { Link } from 'react-router-dom';
@@ -5,6 +7,11 @@ import useLogin from '../../hooks/auth/useLogin';
 
 const Login = () => {
     const { username, password, error, setParams, handleLogin, handleRegisterClick } = useLogin();
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
 
     return (
         <div className="auth">
@@ -15,8 +22,7 @@ const Login = () => {
                 <div className="shape shape-4"></div>
             </div>
             <div className="auth-grid-background"></div>
-            <div className="particles">
-            </div>
+            <div className="particles"></div>
 
             <div className="auth-container animate__animated animate__fadeIn">
                 <h2 className="animate__animated animate__bounceInDown auth-title">Login</h2>
@@ -46,22 +52,31 @@ const Login = () => {
                     </div>
                     <div className="auth-form-group">
                         <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter password"
-                            value={password}
-                            onChange={setParams}
-                            className="animate__animated animate__fadeInRight"
-                            required
-                        />
+                        <div className="auth-input-container">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                id="password"
+                                name="password"
+                                placeholder="Enter password"
+                                value={password}
+                                onChange={setParams}
+                                className="auth-input animate__animated animate__fadeInRight"
+                                required
+                            />
+                            <span
+                                className="auth-password-icon"
+                                onClick={togglePasswordVisibility}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
                         {error.password && (
                             <p className="auth-error-message animate__animated animate__shakeX">
                                 {error.password}
                             </p>
                         )}
                     </div>
+
                     <button
                         type="submit"
                         className="auth-button animate__animated animate__pulse"

@@ -9,6 +9,7 @@ const useUserUpdate = () => {
         username: '',
         email: '',
         age: '',
+        role: '',
         file: null,
         oldPassword: '', // Thêm trường mật khẩu cũ
         newPassword: '', // Thêm trường mật khẩu mới

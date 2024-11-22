@@ -39,25 +39,27 @@ const useCommentUpdate = () => {
         setIsLoading(true);
         setError(null);
         setSuccess(false);
-
-        const formData = new FormData();
-        formData.append('id', formState.id);
-        formData.append('content', formState.content);
-        formData.append('user.username', formState.user.username);
-        formData.append('job.id', formState.job.id);
-
+    
+        const payload = {
+            id: formState.id,
+            content: formState.content,
+            user: { username: formState.user.username },
+            job: { id: formState.job.id },
+        };
+    
         try {
-            await commentUpdateAPI(formData);
+            await commentUpdateAPI(payload); // Thay `formData` bằng `payload`
             setSuccess(true);
             if (role === 'ADMIN') {
-                navigate('/comment/search'); // Đường dẫn cho ADMIN
-            } 
+                navigate('/comment/search');
+            }
         } catch (err) {
-            setError(err.message || 'Đã xảy ra lỗi.');
+            setError(err.message || 'Error occurred.');
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     return {
         formState,

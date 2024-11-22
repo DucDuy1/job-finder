@@ -65,7 +65,7 @@ const useCommentCreate = () => {
                 navigate('/user/search'); // Đường dẫn cho ADMIN
             }
         } catch (err) {
-            setError(err.message || "Đã xảy ra lỗi.");
+            setError(err.message || "error.");
         } finally {
             setIsLoading(false);
         }

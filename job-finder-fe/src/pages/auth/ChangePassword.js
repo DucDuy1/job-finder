@@ -2,19 +2,25 @@ import React, { useState } from 'react';
 import '../css/auth.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { changePasswordAPI } from '../../service/authService';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const ChangePassword = () => {
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const email = location.state?.email; // Retrieve email passed via navigation
+  const email = location.state?.email; // Lấy email từ state được truyền qua navigation
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
 
   const handleChangePassword = async () => {
     try {
       await changePasswordAPI(email, otp, newPassword);
-      navigate('/login'); // Redirect to login page
+      navigate('/login'); // Điều hướng đến trang login
     } catch (error) {
       setError('OTP hoặc mật khẩu không đúng. Vui lòng thử lại.');
     }
@@ -42,13 +48,21 @@ const ChangePassword = () => {
           />
         </div>
         <div className="auth-form-group">
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Enter new password"
-            className="auth-input animate__animated animate__fadeInRight"
-          />
+          <div className="auth-input-container">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+              className="auth-input animate__animated animate__fadeInRight"
+            />
+            <span
+              className="auth-password-icon"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
         </div>
         <button onClick={handleChangePassword} className="auth-button">
           Change password
@@ -56,7 +70,6 @@ const ChangePassword = () => {
         {error && <p className="auth-error-message">{error}</p>}
       </div>
     </div>
-
   );
 };
 

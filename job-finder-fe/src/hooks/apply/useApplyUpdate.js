@@ -50,7 +50,7 @@ const useApplyUpdate = () => {
             setSuccess(true);
             navigate('/apply/search');
         } catch (err) {
-            setError(err.message || 'Đã xảy ra lỗi.');
+            setError(err.message || 'error.');
         } finally {
             setIsLoading(false);
         }

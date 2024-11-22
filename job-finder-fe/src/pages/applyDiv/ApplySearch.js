@@ -68,11 +68,11 @@ const ApplySearch = () => {
                 )}
               </td>
               <td>
-                <button className="search-action-button">
+                {/* <button className="search-action-button">
                   <Link to={`/apply/update/${id}`}>
                     Update
                   </Link>
-                </button>
+                </button> */}
                 <button className="search-action-button" onClick={() => handleDelete(id)}>Delete</button>
               </td>
             </tr>

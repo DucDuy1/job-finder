@@ -58,11 +58,11 @@ const CommentSearch = () => {
               <td>{user.username}</td>
               <td>{job.id}</td>
               <td>
-                <button className="search-action-button">
+                {/* <button className="search-action-button">
                   <Link to={`/comment/update/${id}`}>
                     Update
                   </Link>
-                </button>
+                </button> */}
                 <button className="search-action-button" onClick={() => handleDelete(id)}>Delete</button>
               </td>
             </tr>

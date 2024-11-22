@@ -114,7 +114,7 @@ function UserDashboard() {
                         <label htmlFor="tag" className="searchDiv-label">Tag :</label>
                         <select name="tag" value={search.tag === '%%' ? '' : search.tag}
                             onChange={handleChange} className="searchDiv-select">
-                            <option>Select Language</option>
+                            <option value="">Select Language</option>
                             <option value="JAVA">Java</option>
                             <option value="C">C</option>
                             <option value="C#">C#</option>
@@ -150,46 +150,51 @@ function UserDashboard() {
 
             {/* Job Listing Section */}
             <div className="job">
-                {jobs.map(({ id, nameCompany, description, imageUrl, title, tag, applicationDeadline, employmentType, level, location }) => (
-                    <div className="groupDiv" key={id}>
-                        <span className="groupSpan">
-                            <h1 className="textH1">{title}</h1>
-                            <span className="SpanDiv">
-                                <BiTimeFive /> {applicationDeadline ? new Date(applicationDeadline).toLocaleDateString() : 'No deadline'}
+                {jobs.length === 0 ? (
+                    <p className="no-results">There are no matching search results</p>
+                ) : (
+                    jobs.map(({ id, nameCompany, description, imageUrl, title, tag, applicationDeadline, employmentType, level, location }) => (
+                        <div className="groupDiv" key={id}>
+                            <span className="groupSpan">
+                                <h1 className="textH1">{title}</h1>
+                                <span className="SpanDiv">
+                                    <BiTimeFive /> {applicationDeadline ? new Date(applicationDeadline).toLocaleDateString() : 'No deadline'}
+                                </span>
                             </span>
-                        </span>
-                        <h6 className="textH6">Location: {location}</h6>
-                        <h6 className="textH6">Language: {tag}</h6>
-                        <h6 className="textH6">Level: {level}</h6>
-                        <h6 className="textH6">Employment Type: {employmentType}</h6>
-                        <hr className="line" />
-                        <span
-                            onClick={() => handleDescriptionClick(id)}
-                            className="job-link"
-                            style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
-                        >
-                            Click to see description
-                        </span>
-                        <div className="name">
-                            {imageUrl ? (
-                                <img
-                                    src={imageUrlMap[id]}
-                                    alt={imageUrl}
-                                    className="logo"
-                                />
-                            ) : (
-                                <p>No Image Available</p>
-                            )}
-                            <span className="SpanDiv1">{nameCompany || 'No Company'}</span>
+                            <h6 className="textH6">Location: {location}</h6>
+                            <h6 className="textH6">Language: {tag}</h6>
+                            <h6 className="textH6">Level: {level}</h6>
+                            <h6 className="textH6">Employment Type: {employmentType}</h6>
+                            <hr className="line" />
+                            <span
+                                onClick={() => handleDescriptionClick(id)}
+                                className="job-link"
+                                style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
+                            >
+                                Click to see description
+                            </span>
+                            <div className="name">
+                                {imageUrl ? (
+                                    <img
+                                        src={imageUrlMap[id]}
+                                        alt={imageUrl}
+                                        className="logo"
+                                    />
+                                ) : (
+                                    <p>No Image Available</p>
+                                )}
+                                <span className="SpanDiv1">{nameCompany || 'No Company'}</span>
+                            </div>
+                            <button className="jobDetail-btn">
+                                <span onClick={() => handleApplyClick(id)} className="jobDetail-btn-link">
+                                    Apply Now
+                                </span>
+                            </button>
                         </div>
-                        <button className="jobDetail-btn">
-                            <span onClick={() => handleApplyClick(id)} className="jobDetail-btn-link">
-                                Apply Now
-                            </span>
-                        </button>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
+
 
             {/* Pagination Section */}
             <div className="search-pagination">

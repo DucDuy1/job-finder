@@ -2,6 +2,7 @@ package JobFinder.dto;
 
 import JobFinder.entity.Job;
 import JobFinder.entity.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
